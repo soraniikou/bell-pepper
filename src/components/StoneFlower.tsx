@@ -49,22 +49,30 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
               animate={{ opacity: 1, height: "auto" }}
               style={{ marginBottom: -8 }}
             >
-              {/* Stem */}
+              {/* Stem - organic curved path */}
               <motion.div
                 className="relative flex flex-col items-center"
                 initial={{ height: 0 }}
                 animate={{
-                  height: stage === "blooming" ? 90 : stage === "growing" ? 60 : 25,
+                  height: stage === "blooming" ? 120 : stage === "growing" ? 75 : 30,
                 }}
                 transition={{ duration: 2, ease: "easeOut" }}
               >
-                <div
-                  className="w-[2.5px] rounded-full"
-                  style={{
-                    height: "100%",
-                    background: `linear-gradient(to top, hsl(120, 30%, 35%), hsl(120, 40%, 50%))`,
-                  }}
-                />
+                <svg
+                  width="30"
+                  height="100%"
+                  viewBox="0 0 30 100"
+                  preserveAspectRatio="none"
+                  style={{ height: "100%", overflow: "visible" }}
+                >
+                  <path
+                    d="M15 100 C13 80, 18 65, 14 45 C11 30, 16 15, 15 0"
+                    stroke="hsl(120, 35%, 40%)"
+                    strokeWidth="2.5"
+                    fill="none"
+                    strokeLinecap="round"
+                  />
+                </svg>
                 {/* Leaves */}
                 {(stage === "growing" || stage === "blooming") && (
                   <>
@@ -114,44 +122,53 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ duration: 2, ease: "easeOut", delay: 0.3 }}
                 >
-                  {/* Petals */}
-                  {[0, 60, 120, 180, 240, 300].map((angle, i) => (
+                  {/* Petals - larger, more realistic */}
+                  {[0, 72, 144, 216, 288].map((angle, i) => (
                     <motion.div
                       key={angle}
                       className="absolute"
                       style={{
-                        transform: `rotate(${angle}deg) translateY(-14px)`,
+                        transform: `rotate(${angle}deg) translateY(-22px)`,
                       }}
                       initial={{ scale: 0, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 0.95 }}
+                      animate={{ scale: 1, opacity: 0.97 }}
                       transition={{ duration: 1.2, delay: 0.5 + i * 0.15 }}
                     >
                       <div
                         style={{
-                          width: 14,
-                          height: 22,
-                          borderRadius: "50% 50% 50% 50%",
-                          background: `radial-gradient(ellipse, 
-                            hsla(60, 20%, 97%, 0.95), 
-                            hsla(60, 15%, 92%, 0.8))`,
-                          boxShadow: "0 0 8px hsla(60, 20%, 95%, 0.4)",
+                          width: 24,
+                          height: 38,
+                          borderRadius: "50% 50% 45% 45%",
+                          background: `radial-gradient(ellipse at 50% 40%, 
+                            hsla(0, 0%, 100%, 0.98), 
+                            hsla(0, 0%, 96%, 0.95),
+                            hsla(60, 10%, 92%, 0.85))`,
+                          boxShadow: "0 0 12px hsla(0, 0%, 100%, 0.3)",
                         }}
                       />
                     </motion.div>
                   ))}
-                  {/* Center */}
+                  {/* Center - pistil/stamen */}
                   <motion.div
-                    className="relative z-10 rounded-full"
+                    className="relative z-10 flex items-center justify-center"
                     style={{
-                      width: 10,
-                      height: 10,
-                      background: "radial-gradient(circle, hsl(50, 70%, 65%), hsl(45, 60%, 50%))",
-                      boxShadow: "0 0 6px hsla(50, 70%, 65%, 0.5)",
+                      width: 14,
+                      height: 14,
                     }}
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ duration: 0.8, delay: 1.5 }}
-                  />
+                  >
+                    <div
+                      style={{
+                        width: 14,
+                        height: 14,
+                        borderRadius: "50%",
+                        background: "radial-gradient(circle, hsl(55, 80%, 75%), hsl(90, 40%, 55%))",
+                        boxShadow: "0 0 8px hsla(55, 70%, 65%, 0.5)",
+                      }}
+                    />
+                  </motion.div>
                 </motion.div>
               )}
 
@@ -177,57 +194,41 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
           )}
         </AnimatePresence>
 
-        {/* Stone */}
-        <motion.div
-          className="relative"
-          animate={{
-            scale: isDragging ? 0.97 : 1,
-          }}
-          transition={{ duration: 0.2 }}
-        >
-          <svg width="70" height="45" viewBox="0 0 70 45">
-            <ellipse
-              cx="35"
-              cy="25"
-              rx="32"
-              ry="18"
-              fill={stoneColor}
-              stroke="none"
-            />
-            <ellipse
-              cx="35"
-              cy="25"
-              rx="32"
-              ry="18"
-              fill="url(#stoneGrad)"
-            />
-            {/* Highlight */}
-            <ellipse
-              cx="28"
-              cy="20"
-              rx="12"
-              ry="6"
-              fill="hsla(0, 0%, 100%, 0.08)"
-            />
-            <defs>
-              <radialGradient id="stoneGrad" cx="40%" cy="35%">
-                <stop offset="0%" stopColor="hsla(0, 0%, 100%, 0.1)" />
-                <stop offset="100%" stopColor="hsla(0, 0%, 0%, 0.15)" />
-              </radialGradient>
-            </defs>
-          </svg>
-          {/* Nurturing glow */}
-          {isDragging && (
-            <motion.div
-              className="absolute inset-0 rounded-full"
-              style={{
-                background: "radial-gradient(circle, hsla(45, 60%, 80%, 0.2), transparent 70%)",
-              }}
-              animate={{ opacity: [0.3, 0.7, 0.3] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-            />
-          )}
-        </motion.div>
+        {/* Stone - shrinks as flower grows, disappears when blooming */}
+        {stage !== "blooming" && (
+          <motion.div
+            className="relative"
+            animate={{
+              scale: isDragging
+                ? Math.max(0, 1 - growthLevel * 1.1) * 0.97
+                : Math.max(0, 1 - growthLevel * 1.1),
+              opacity: Math.max(0, 1 - growthLevel * 1.3),
+            }}
+            transition={{ duration: 0.3 }}
+          >
+            <svg width="70" height="45" viewBox="0 0 70 45">
+              <ellipse cx="35" cy="25" rx="32" ry="18" fill={stoneColor} stroke="none" />
+              <ellipse cx="35" cy="25" rx="32" ry="18" fill="url(#stoneGrad)" />
+              <ellipse cx="28" cy="20" rx="12" ry="6" fill="hsla(0, 0%, 100%, 0.08)" />
+              <defs>
+                <radialGradient id="stoneGrad" cx="40%" cy="35%">
+                  <stop offset="0%" stopColor="hsla(0, 0%, 100%, 0.1)" />
+                  <stop offset="100%" stopColor="hsla(0, 0%, 0%, 0.15)" />
+                </radialGradient>
+              </defs>
+            </svg>
+            {isDragging && (
+              <motion.div
+                className="absolute inset-0 rounded-full"
+                style={{
+                  background: "radial-gradient(circle, hsla(45, 60%, 80%, 0.2), transparent 70%)",
+                }}
+                animate={{ opacity: [0.3, 0.7, 0.3] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              />
+            )}
+          </motion.div>
+        )}
       </div>
     </div>
   );
