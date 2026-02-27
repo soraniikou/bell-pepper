@@ -1,16 +1,17 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface StoneFlowerProps {
-  skyProgress: number; // 0=rain, 0.5=night, 1=clear
-  growthLevel: number; // 0-1 how much the stone has been nurtured
+  skyProgress: number;
+  growthLevel: number;
   onNurture: () => void;
 }
 
 export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlowerProps) => {
   const [isDragging, setIsDragging] = useState(false);
+  const [fallingPetal, setFallingPetal] = useState(false);
+  const voiceRef = useRef<HTMLAudioElement | null>(null);
 
-  // Determine visual stage based on growth and sky
   const stage = useMemo(() => {
     if (growthLevel < 0.2) return "stone";
     if (growthLevel < 0.5) return "sprouting";
@@ -18,17 +19,34 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
     return "blooming";
   }, [growthLevel, skyProgress]);
 
+  // After blooming, trigger one petal to fall after a delay
+  useEffect(() => {
+    if (stage === "blooming" && !fallingPetal) {
+      const timer = setTimeout(() => {
+        setFallingPetal(true);
+        // Play voice when petal falls
+        const audio = new Audio("/audio/voice.m4a");
+        audio.volume = 0.8;
+        audio.play().catch(() => {});
+        voiceRef.current = audio;
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [stage, fallingPetal]);
+
   const handlePointerMove = useCallback(() => {
     if (isDragging) {
       onNurture();
     }
   }, [isDragging, onNurture]);
 
-  // Stone color shifts slightly with sky
   const stoneColor = useMemo(() => {
     const baseL = 45 + skyProgress * 15;
     return `hsl(30, ${8 + skyProgress * 4}%, ${baseL}%)`;
   }, [skyProgress]);
+
+  // 5 petals at 72° intervals
+  const petalAngles = [0, 72, 144, 216, 288];
 
   return (
     <div
@@ -40,7 +58,6 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
       style={{ touchAction: "none" }}
     >
       <div className="relative flex flex-col items-center">
-        {/* Flower / Growing elements */}
         <AnimatePresence>
           {stage !== "stone" && (
             <motion.div
@@ -49,7 +66,7 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
               animate={{ opacity: 1, height: "auto" }}
               style={{ marginBottom: -8 }}
             >
-              {/* Stem - organic curved path */}
+              {/* Stem */}
               <motion.div
                 className="relative flex flex-col items-center"
                 initial={{ height: 0 }}
@@ -114,7 +131,7 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
                 )}
               </motion.div>
 
-              {/* Flower head */}
+              {/* Flower head - 5 petals */}
               {stage === "blooming" && (
                 <motion.div
                   className="absolute -top-14 flex items-center justify-center"
@@ -122,19 +139,22 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ duration: 2, ease: "easeOut", delay: 0.3 }}
                 >
-                  {/* Star-shaped petals like real paprika flower */}
                   <svg width="360" height="360" viewBox="-180 -180 360 360" style={{ overflow: "visible" }}>
-                    {[0, 60, 120, 180, 240, 300].map((angle, i) => (
-                      <motion.path
-                        key={angle}
-                        d={`M0,0 C${-18},${-36} ${-30},${-114} 0,${-144} C${30},${-114} ${18},${-36} 0,0`}
-                        transform={`rotate(${angle})`}
-                        fill="url(#petalGrad)"
-                        initial={{ scale: 0, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 0.95 }}
-                        transition={{ duration: 1.2, delay: 0.5 + i * 0.12 }}
-                      />
-                    ))}
+                    {petalAngles.map((angle, i) => {
+                      // Skip the falling petal (index 2 = 144°)
+                      if (fallingPetal && i === 2) return null;
+                      return (
+                        <motion.path
+                          key={angle}
+                          d={`M0,0 C${-22},${-40} ${-35},${-120} 0,${-150} C${35},${-120} ${22},${-40} 0,0`}
+                          transform={`rotate(${angle})`}
+                          fill="url(#petalGrad)"
+                          initial={{ scale: 0, opacity: 0 }}
+                          animate={{ scale: 1, opacity: 0.95 }}
+                          transition={{ duration: 1.2, delay: 0.5 + i * 0.15 }}
+                        />
+                      );
+                    })}
                     <defs>
                       <radialGradient id="petalGrad" cx="50%" cy="30%">
                         <stop offset="0%" stopColor="hsla(0, 0%, 100%, 0.99)" />
@@ -156,7 +176,7 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
                         <stop offset="100%" stopColor="hsl(90, 40%, 55%)" />
                       </radialGradient>
                     </defs>
-                    {/* Small stamens */}
+                    {/* Stamens */}
                     {[0, 72, 144, 216, 288].map((a) => (
                       <motion.line
                         key={`s${a}`}
@@ -172,6 +192,40 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
                       />
                     ))}
                   </svg>
+
+                  {/* Falling petal */}
+                  <AnimatePresence>
+                    {fallingPetal && (
+                      <motion.div
+                        className="absolute"
+                        style={{ top: 0, left: "50%", marginLeft: -20 }}
+                        initial={{ 
+                          y: -120, 
+                          x: 0, 
+                          rotate: 144,
+                          opacity: 0.95 
+                        }}
+                        animate={{
+                          y: [-120, 50, 200, 400, 650],
+                          x: [0, 40, -20, 60, 30],
+                          rotate: [144, 200, 160, 250, 300],
+                          opacity: [0.95, 0.9, 0.8, 0.5, 0],
+                        }}
+                        transition={{
+                          duration: 6,
+                          ease: "easeIn",
+                        }}
+                      >
+                        <svg width="40" height="60" viewBox="-20 -30 40 60">
+                          <path
+                            d={`M0,-25 C${-12},${-15} ${-18},${5} 0,${25} C${18},${5} ${12},${-15} 0,-25`}
+                            fill="hsla(0, 0%, 100%, 0.9)"
+                            style={{ filter: "drop-shadow(0 2px 6px hsla(0,0%,80%,0.3))" }}
+                          />
+                        </svg>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </motion.div>
               )}
 
@@ -197,7 +251,7 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
           )}
         </AnimatePresence>
 
-        {/* Stone - shrinks as flower grows, disappears when blooming */}
+        {/* Stone */}
         {stage !== "blooming" && (
           <motion.div
             className="relative"
