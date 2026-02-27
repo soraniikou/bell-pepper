@@ -17,6 +17,21 @@ const Index = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { startAmbient, playBloomMelody, playChime } = useAudioSystem();
 
+  // Auto-progress: sky and growth advance automatically
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setSkyProgress((prev) => {
+        if (prev >= 1) return 1;
+        return Math.min(1, prev + 0.002);
+      });
+      setGrowthLevel((prev) => {
+        if (prev >= 1) return 1;
+        return Math.min(1, prev + 0.001);
+      });
+    }, 50);
+    return () => clearInterval(timer);
+  }, []);
+
   const skyColors = useMemo(() => getSkyColors(skyProgress), [skyProgress]);
 
   // Rain opacity: full at 0, fades by 0.3

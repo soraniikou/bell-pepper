@@ -123,11 +123,11 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
                   transition={{ duration: 2, ease: "easeOut", delay: 0.3 }}
                 >
                   {/* Star-shaped petals like real paprika flower */}
-                  <svg width="120" height="120" viewBox="-60 -60 120 120" style={{ overflow: "visible" }}>
+                  <svg width="360" height="360" viewBox="-180 -180 360 360" style={{ overflow: "visible" }}>
                     {[0, 60, 120, 180, 240, 300].map((angle, i) => (
                       <motion.path
                         key={angle}
-                        d={`M0,0 C${-6},${-12} ${-10},${-38} 0,${-48} C${10},${-38} ${6},${-12} 0,0`}
+                        d={`M0,0 C${-18},${-36} ${-30},${-114} 0,${-144} C${30},${-114} ${18},${-36} 0,0`}
                         transform={`rotate(${angle})`}
                         fill="url(#petalGrad)"
                         initial={{ scale: 0, opacity: 0 }}
@@ -144,7 +144,7 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
                     </defs>
                     {/* Center pistil */}
                     <motion.circle
-                      cx="0" cy="0" r="8"
+                      cx="0" cy="0" r="24"
                       fill="url(#centerGrad)"
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
@@ -161,8 +161,8 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
                       <motion.line
                         key={`s${a}`}
                         x1="0" y1="0"
-                        x2={Math.sin(a * Math.PI / 180) * 12}
-                        y2={-Math.cos(a * Math.PI / 180) * 12}
+                        x2={Math.sin(a * Math.PI / 180) * 36}
+                        y2={-Math.cos(a * Math.PI / 180) * 36}
                         stroke="hsl(55, 60%, 65%)"
                         strokeWidth="1.5"
                         strokeLinecap="round"
