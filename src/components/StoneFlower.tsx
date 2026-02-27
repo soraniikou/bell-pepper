@@ -10,7 +10,10 @@ interface StoneFlowerProps {
 export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlowerProps) => {
   const [isDragging, setIsDragging] = useState(false);
   const [fallingPetal, setFallingPetal] = useState(false);
+  const [showWishPetal, setShowWishPetal] = useState(false);
+  const [wishText, setWishText] = useState("");
   const voiceRef = useRef<HTMLAudioElement | null>(null);
+  const playCountRef = useRef(0);
 
   const stage = useMemo(() => {
     if (growthLevel < 0.2) return "stone";
@@ -24,11 +27,26 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
     if (stage === "blooming" && !fallingPetal) {
       const timer = setTimeout(() => {
         setFallingPetal(true);
-        // Play voice when petal falls
+        // Play voice 2 times
+        playCountRef.current = 0;
         const audio = new Audio("/audio/voice.m4a");
         audio.volume = 0.8;
-        audio.play().catch(() => {});
         voiceRef.current = audio;
+        
+        audio.addEventListener("ended", () => {
+          playCountRef.current += 1;
+          if (playCountRef.current < 2) {
+            audio.currentTime = 0;
+            audio.play().catch(() => {});
+          } else {
+            // After voice ends, show wish petal
+            setTimeout(() => {
+              setShowWishPetal(true);
+            }, 1500);
+          }
+        });
+        
+        audio.play().catch(() => {});
       }, 5000);
       return () => clearTimeout(timer);
     }
@@ -66,12 +84,12 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
               animate={{ opacity: 1, height: "auto" }}
               style={{ marginBottom: -8 }}
             >
-              {/* Stem */}
+              {/* Stem - much longer */}
               <motion.div
                 className="relative flex flex-col items-center"
                 initial={{ height: 0 }}
                 animate={{
-                  height: stage === "blooming" ? 200 : stage === "growing" ? 110 : 35,
+                  height: stage === "blooming" ? 320 : stage === "growing" ? 140 : 45,
                 }}
                 transition={{ duration: 2, ease: "easeOut" }}
               >
@@ -95,15 +113,15 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
                   <>
                     <motion.div
                       className="absolute"
-                      style={{ top: "40%", left: 1 }}
+                      style={{ top: "35%", left: 1 }}
                       initial={{ scale: 0, rotate: 0 }}
                       animate={{ scale: 1, rotate: -35 }}
                       transition={{ duration: 1.5, delay: 0.5 }}
                     >
                       <div
                         style={{
-                          width: 16,
-                          height: 8,
+                          width: 20,
+                          height: 10,
                           borderRadius: "0 80% 0 80%",
                           background: "hsl(120, 35%, 45%)",
                           transformOrigin: "left center",
@@ -112,18 +130,35 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
                     </motion.div>
                     <motion.div
                       className="absolute"
-                      style={{ top: "60%", right: 1 }}
+                      style={{ top: "55%", right: 1 }}
                       initial={{ scale: 0, rotate: 0 }}
                       animate={{ scale: 1, rotate: 35 }}
                       transition={{ duration: 1.5, delay: 0.8 }}
                     >
                       <div
                         style={{
-                          width: 14,
-                          height: 7,
+                          width: 18,
+                          height: 9,
                           borderRadius: "80% 0 80% 0",
                           background: "hsl(120, 32%, 48%)",
                           transformOrigin: "right center",
+                        }}
+                      />
+                    </motion.div>
+                    <motion.div
+                      className="absolute"
+                      style={{ top: "75%", left: 1 }}
+                      initial={{ scale: 0, rotate: 0 }}
+                      animate={{ scale: 1, rotate: -30 }}
+                      transition={{ duration: 1.5, delay: 1.1 }}
+                    >
+                      <div
+                        style={{
+                          width: 16,
+                          height: 8,
+                          borderRadius: "0 80% 0 80%",
+                          background: "hsl(120, 30%, 50%)",
+                          transformOrigin: "left center",
                         }}
                       />
                     </motion.div>
@@ -131,7 +166,7 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
                 )}
               </motion.div>
 
-              {/* Flower head - 5 petals */}
+              {/* Flower head - 5 petals paprika style */}
               {stage === "blooming" && (
                 <motion.div
                   className="absolute -top-14 flex items-center justify-center"
@@ -287,6 +322,95 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
           </motion.div>
         )}
       </div>
+
+      {/* Wish Petal - large petal that slides in from behind for writing wishes */}
+      <AnimatePresence>
+        {showWishPetal && (
+          <motion.div
+            className="fixed inset-0 flex items-center justify-center z-50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 2 }}
+          >
+            {/* Backdrop */}
+            <motion.div
+              className="absolute inset-0"
+              style={{ background: "hsla(0, 0%, 0%, 0.15)" }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 2 }}
+            />
+            
+            {/* Large petal shape */}
+            <motion.div
+              className="relative flex items-center justify-center"
+              initial={{ scale: 0, y: 300, opacity: 0, rotate: -20 }}
+              animate={{ scale: 1, y: 0, opacity: 1, rotate: 0 }}
+              transition={{ duration: 2.5, ease: "easeOut" }}
+            >
+              <svg
+                width="340"
+                height="480"
+                viewBox="-170 -240 340 480"
+                style={{ filter: "drop-shadow(0 8px 32px hsla(0,0%,70%,0.4))" }}
+              >
+                <path
+                  d={`M0,-220 C${-80},${-160} ${-140},${-40} ${-130},${60} C${-120},${140} ${-70},${200} 0,${230} C${70},${200} ${120},${140} ${130},${60} C${140},${-40} ${80},${-160} 0,-220`}
+                  fill="hsla(0, 0%, 100%, 0.92)"
+                  stroke="hsla(0, 0%, 85%, 0.5)"
+                  strokeWidth="1"
+                />
+                {/* Subtle vein lines */}
+                <path
+                  d="M0,-200 C-5,-100 -3,0 0,210"
+                  stroke="hsla(60, 10%, 85%, 0.5)"
+                  strokeWidth="1"
+                  fill="none"
+                />
+                <path
+                  d="M0,-150 C-30,-80 -50,0 -40,100"
+                  stroke="hsla(60, 10%, 88%, 0.3)"
+                  strokeWidth="0.8"
+                  fill="none"
+                />
+                <path
+                  d="M0,-150 C30,-80 50,0 40,100"
+                  stroke="hsla(60, 10%, 88%, 0.3)"
+                  strokeWidth="0.8"
+                  fill="none"
+                />
+              </svg>
+              
+              {/* Text input area on the petal */}
+              <motion.div
+                className="absolute inset-0 flex flex-col items-center justify-center px-12"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 2, duration: 1.5 }}
+              >
+                <p
+                  className="text-sm tracking-[0.3em] mb-6 font-serif-elegant italic"
+                  style={{ color: "hsla(210, 15%, 50%, 0.6)" }}
+                >
+                  あなたの願いを
+                </p>
+                <textarea
+                  value={wishText}
+                  onChange={(e) => setWishText(e.target.value)}
+                  placeholder="ここに願いを書いてください..."
+                  className="w-48 h-40 bg-transparent border-none outline-none resize-none text-center font-serif-elegant italic text-base leading-relaxed"
+                  style={{
+                    color: "hsla(210, 20%, 35%, 0.8)",
+                    caretColor: "hsla(210, 20%, 50%, 0.6)",
+                  }}
+                  maxLength={200}
+                  autoFocus
+                />
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
