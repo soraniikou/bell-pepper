@@ -374,12 +374,58 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
               animate={{ scale: 1, y: 0, opacity: 1, rotate: 0 }}
               transition={{ duration: 2.5, ease: "easeOut" }}
             >
+              {/* Hands cupping the petal */}
               <svg
-                width="340"
-                height="480"
-                viewBox="-170 -240 340 480"
+                width="400"
+                height="560"
+                viewBox="-200 -260 400 560"
                 style={{ filter: "drop-shadow(0 8px 32px hsla(0,0%,70%,0.4))" }}
               >
+                {/* Left hand */}
+                <motion.g
+                  initial={{ opacity: 0, x: -30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 2, delay: 1 }}
+                >
+                  {/* Left palm */}
+                  <path
+                    d="M-130,180 C-145,140 -155,80 -148,40 C-142,10 -130,-10 -115,0 C-105,8 -100,30 -100,50 L-100,50 C-108,20 -100,-5 -90,0 C-80,5 -78,30 -80,50 L-80,50 C-85,25 -75,5 -65,10 C-55,15 -55,40 -58,55 L-58,55 C-60,35 -52,20 -45,25 C-38,30 -38,50 -42,65 C-50,100 -55,140 -60,170 C-70,200 -90,220 -110,220 C-125,220 -135,205 -130,180 Z"
+                    fill="hsla(25, 30%, 82%, 0.85)"
+                    stroke="hsla(25, 20%, 70%, 0.4)"
+                    strokeWidth="0.8"
+                  />
+                  {/* Left thumb */}
+                  <path
+                    d="M-130,180 C-140,165 -150,145 -145,130 C-140,120 -130,125 -128,140 C-126,150 -128,165 -130,180"
+                    fill="hsla(25, 30%, 80%, 0.8)"
+                    stroke="hsla(25, 20%, 70%, 0.3)"
+                    strokeWidth="0.6"
+                  />
+                </motion.g>
+
+                {/* Right hand */}
+                <motion.g
+                  initial={{ opacity: 0, x: 30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 2, delay: 1 }}
+                >
+                  {/* Right palm */}
+                  <path
+                    d="M130,180 C145,140 155,80 148,40 C142,10 130,-10 115,0 C105,8 100,30 100,50 L100,50 C108,20 100,-5 90,0 C80,5 78,30 80,50 L80,50 C85,25 75,5 65,10 C55,15 55,40 58,55 L58,55 C60,35 52,20 45,25 C38,30 38,50 42,65 C50,100 55,140 60,170 C70,200 90,220 110,220 C125,220 135,205 130,180 Z"
+                    fill="hsla(25, 30%, 82%, 0.85)"
+                    stroke="hsla(25, 20%, 70%, 0.4)"
+                    strokeWidth="0.8"
+                  />
+                  {/* Right thumb */}
+                  <path
+                    d="M130,180 C140,165 150,145 145,130 C140,120 130,125 128,140 C126,150 128,165 130,180"
+                    fill="hsla(25, 30%, 80%, 0.8)"
+                    stroke="hsla(25, 20%, 70%, 0.3)"
+                    strokeWidth="0.6"
+                  />
+                </motion.g>
+
+                {/* Petal shape (on top of hands) */}
                 <path
                   d={`M0,-220 C${-80},${-160} ${-140},${-40} ${-130},${60} C${-120},${140} ${-70},${200} 0,${230} C${70},${200} ${120},${140} ${130},${60} C${140},${-40} ${80},${-160} 0,-220`}
                   fill="hsla(0, 0%, 100%, 0.92)"
