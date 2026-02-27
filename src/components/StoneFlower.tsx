@@ -36,8 +36,11 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
         audio.addEventListener("ended", () => {
           playCountRef.current += 1;
           if (playCountRef.current < 2) {
-            audio.currentTime = 0;
-            audio.play().catch(() => {});
+            // Wait 6 seconds before playing the second time
+            setTimeout(() => {
+              audio.currentTime = 0;
+              audio.play().catch(() => {});
+            }, 6000);
           } else {
             // After voice ends, show wish petal
             setTimeout(() => {
