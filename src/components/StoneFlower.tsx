@@ -367,124 +367,31 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
               transition={{ duration: 2 }}
             />
             
-            {/* Large petal shape */}
+            {/* Hands holding petal - using photo */}
             <motion.div
               className="relative flex items-center justify-center"
-              initial={{ scale: 0, y: 300, opacity: 0, rotate: -20 }}
-              animate={{ scale: 1, y: 0, opacity: 1, rotate: 0 }}
+              initial={{ scale: 0, y: 300, opacity: 0 }}
+              animate={{ scale: 1, y: 0, opacity: 1 }}
               transition={{ duration: 2.5, ease: "easeOut" }}
             >
-              {/* Hands cupping from below - palms up */}
-              <svg
-                width="460"
-                height="680"
-                viewBox="-230 -280 460 680"
-                style={{ filter: "drop-shadow(0 8px 32px hsla(0,0%,70%,0.4))" }}
-              >
-                {/* Petal shape (behind hands) */}
-                <path
-                  d={`M0,-220 C${-80},${-160} ${-140},${-40} ${-130},${60} C${-120},${140} ${-70},${200} 0,${230} C${70},${200} ${120},${140} ${130},${60} C${140},${-40} ${80},${-160} 0,-220`}
-                  fill="hsla(0, 0%, 100%, 0.92)"
-                  stroke="hsla(0, 0%, 85%, 0.5)"
-                  strokeWidth="1"
-                />
-
-                {/* Left arm & hand - from bottom, palm up, cupping */}
-                <motion.g
-                  initial={{ opacity: 0, y: 40 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 2, delay: 1 }}
-                >
-                  {/* Left forearm */}
-                  <path
-                    d="M-95,390 C-100,350 -115,300 -128,260 C-140,220 -142,180 -132,150 C-122,120 -108,105 -90,95"
-                    fill="none"
-                    stroke="hsla(20, 22%, 82%, 0.9)"
-                    strokeWidth="32"
-                    strokeLinecap="round"
-                  />
-                  {/* Left palm cupped */}
-                  <path
-                    d="M-90,95 C-75,82 -55,74 -35,72 C-15,71 0,74 10,80"
-                    fill="none"
-                    stroke="hsla(20, 24%, 84%, 0.88)"
-                    strokeWidth="28"
-                    strokeLinecap="round"
-                  />
-                  {/* Left fingers curling up */}
-                  <path d="M10,80 C18,72 22,62 20,54" fill="none" stroke="hsla(20, 24%, 83%, 0.82)" strokeWidth="9" strokeLinecap="round" />
-                  <path d="M0,74 C8,64 12,54 10,46" fill="none" stroke="hsla(20, 24%, 83%, 0.82)" strokeWidth="8.5" strokeLinecap="round" />
-                  <path d="M-12,72 C-5,60 -2,50 -4,42" fill="none" stroke="hsla(20, 24%, 83%, 0.82)" strokeWidth="8" strokeLinecap="round" />
-                  <path d="M-25,74 C-20,62 -18,52 -20,46" fill="none" stroke="hsla(20, 24%, 83%, 0.82)" strokeWidth="7.5" strokeLinecap="round" />
-                  {/* Left thumb */}
-                  <path d="M-95,90 C-108,78 -112,60 -104,52 C-96,46 -90,58 -90,72" fill="none" stroke="hsla(20, 24%, 83%, 0.85)" strokeWidth="10" strokeLinecap="round" />
-                  {/* Palm surface */}
-                  <ellipse cx="-40" cy="86" rx="42" ry="16" fill="hsla(20, 18%, 87%, 0.3)" />
-                </motion.g>
-
-                {/* Right arm & hand - from bottom, palm up, cupping */}
-                <motion.g
-                  initial={{ opacity: 0, y: 40 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 2, delay: 1.2 }}
-                >
-                  {/* Right forearm */}
-                  <path
-                    d="M95,390 C100,350 115,300 128,260 C140,220 142,180 132,150 C122,120 108,105 90,95"
-                    fill="none"
-                    stroke="hsla(20, 22%, 82%, 0.9)"
-                    strokeWidth="32"
-                    strokeLinecap="round"
-                  />
-                  {/* Right palm cupped */}
-                  <path
-                    d="M90,95 C75,82 55,74 35,72 C15,71 0,74 -10,80"
-                    fill="none"
-                    stroke="hsla(20, 24%, 84%, 0.88)"
-                    strokeWidth="28"
-                    strokeLinecap="round"
-                  />
-                  {/* Right fingers curling up */}
-                  <path d="M-10,80 C-18,72 -22,62 -20,54" fill="none" stroke="hsla(20, 24%, 83%, 0.82)" strokeWidth="9" strokeLinecap="round" />
-                  <path d="M0,74 C-8,64 -12,54 -10,46" fill="none" stroke="hsla(20, 24%, 83%, 0.82)" strokeWidth="8.5" strokeLinecap="round" />
-                  <path d="M12,72 C5,60 2,50 4,42" fill="none" stroke="hsla(20, 24%, 83%, 0.82)" strokeWidth="8" strokeLinecap="round" />
-                  <path d="M25,74 C20,62 18,52 20,46" fill="none" stroke="hsla(20, 24%, 83%, 0.82)" strokeWidth="7.5" strokeLinecap="round" />
-                  {/* Right thumb */}
-                  <path d="M95,90 C108,78 112,60 104,52 C96,46 90,58 90,72" fill="none" stroke="hsla(20, 24%, 83%, 0.85)" strokeWidth="10" strokeLinecap="round" />
-                  {/* Palm surface */}
-                  <ellipse cx="40" cy="86" rx="42" ry="16" fill="hsla(20, 18%, 87%, 0.3)" />
-                </motion.g>
-                {/* Subtle vein lines */}
-                <path
-                  d="M0,-200 C-5,-100 -3,0 0,210"
-                  stroke="hsla(60, 10%, 85%, 0.5)"
-                  strokeWidth="1"
-                  fill="none"
-                />
-                <path
-                  d="M0,-150 C-30,-80 -50,0 -40,100"
-                  stroke="hsla(60, 10%, 88%, 0.3)"
-                  strokeWidth="0.8"
-                  fill="none"
-                />
-                <path
-                  d="M0,-150 C30,-80 50,0 40,100"
-                  stroke="hsla(60, 10%, 88%, 0.3)"
-                  strokeWidth="0.8"
-                  fill="none"
-                />
-              </svg>
+              <img
+                src="/images/hands.png"
+                alt="両手で花びらを包む"
+                className="w-[340px] h-auto pointer-events-none select-none"
+                style={{ filter: "drop-shadow(0 8px 24px hsla(0,0%,60%,0.3))" }}
+                draggable={false}
+              />
               
-              {/* Text input area on the petal */}
+              {/* Text input area overlaid on the photo */}
               <motion.div
-                className="absolute inset-0 flex flex-col items-center justify-center px-12"
+                className="absolute inset-0 flex flex-col items-center justify-center px-16"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 2, duration: 1.5 }}
               >
                 <p
-                  className="text-sm tracking-[0.3em] mb-6 font-serif-elegant italic"
-                  style={{ color: "hsla(210, 15%, 50%, 0.6)" }}
+                  className="text-sm tracking-[0.3em] mb-4 font-serif-elegant italic"
+                  style={{ color: "hsla(210, 15%, 40%, 0.7)" }}
                 >
                   あなたの願いを
                 </p>
@@ -492,9 +399,9 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
                   value={wishText}
                   onChange={(e) => setWishText(e.target.value)}
                   placeholder="ここに願いを書いてください..."
-                  className="w-48 h-40 bg-transparent border-none outline-none resize-none text-center font-serif-elegant italic text-base leading-relaxed"
+                  className="w-44 h-32 bg-transparent border-none outline-none resize-none text-center font-serif-elegant italic text-base leading-relaxed"
                   style={{
-                    color: "hsla(210, 20%, 35%, 0.8)",
+                    color: "hsla(210, 20%, 30%, 0.85)",
                     caretColor: "hsla(210, 20%, 50%, 0.6)",
                   }}
                   maxLength={200}
