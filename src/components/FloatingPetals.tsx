@@ -15,7 +15,7 @@ export const FloatingPetals = ({ active }: FloatingPetalsProps) => {
       rotation: Math.random() * 360,
       delay: Math.random() * 6,
       duration: 7 + Math.random() * 5,
-      size: 6 + Math.random() * 8,
+      size: 14 + Math.random() * 14,
     }))
   ).current;
 
@@ -49,7 +49,7 @@ export const FloatingPetals = ({ active }: FloatingPetalsProps) => {
               width: petal.size,
               height: petal.size * 1.4,
               borderRadius: "50% 50% 50% 50%",
-              background: `radial-gradient(ellipse, hsla(60, 20%, 97%, 0.8), hsla(60, 15%, 90%, 0.4))`,
+              background: `radial-gradient(ellipse, hsla(0, 0%, 100%, 0.95), hsla(0, 0%, 96%, 0.7))`,
             }}
           />
         </motion.div>
