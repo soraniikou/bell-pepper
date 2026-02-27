@@ -12,8 +12,9 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
   const [fallingPetal, setFallingPetal] = useState(false);
   const [showWishPetal, setShowWishPetal] = useState(false);
   const [wishText, setWishText] = useState("");
+  const [rainbowProgress, setRainbowProgress] = useState(0);
   const voiceRef = useRef<HTMLAudioElement | null>(null);
-  const playCountRef = useRef(0);
+  const rainbowAnimRef = useRef<number | null>(null);
 
   const stage = useMemo(() => {
     if (growthLevel < 0.2) return "stone";
@@ -27,26 +28,33 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
     if (stage === "blooming" && !fallingPetal) {
       const timer = setTimeout(() => {
         setFallingPetal(true);
-        // Play voice 2 times
-        playCountRef.current = 0;
         const audio = new Audio("/audio/voice.m4a");
         audio.volume = 0.8;
         voiceRef.current = audio;
-        
+
+        // Gradually decrease volume & animate rainbow
+        const startTime = Date.now();
+        const fadeInterval = setInterval(() => {
+          const elapsed = (Date.now() - startTime) / 1000;
+          const duration = audio.duration || 30;
+          const progress = Math.min(1, elapsed / duration);
+          
+          // Fade volume
+          audio.volume = Math.max(0, 0.8 * (1 - progress * 0.7));
+          
+          // Rainbow progress
+          setRainbowProgress(progress);
+          
+          if (progress >= 1) clearInterval(fadeInterval);
+        }, 100);
+
         audio.addEventListener("ended", () => {
-          playCountRef.current += 1;
-          if (playCountRef.current < 2) {
-            // Wait 6 seconds before playing the second time
-            setTimeout(() => {
-              audio.currentTime = 0;
-              audio.play().catch(() => {});
-            }, 6000);
-          } else {
-            // After voice ends, show wish petal
-            setTimeout(() => {
-              setShowWishPetal(true);
-            }, 1500);
-          }
+          clearInterval(fadeInterval);
+          setRainbowProgress(1);
+          // Show wish petal after voice ends
+          setTimeout(() => {
+            setShowWishPetal(true);
+          }, 1500);
         });
         
         audio.play().catch(() => {});
@@ -195,9 +203,20 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
                     })}
                     <defs>
                       <radialGradient id="petalGrad" cx="50%" cy="30%">
-                        <stop offset="0%" stopColor="hsla(0, 0%, 100%, 0.99)" />
-                        <stop offset="60%" stopColor="hsla(0, 0%, 97%, 0.95)" />
-                        <stop offset="100%" stopColor="hsla(60, 8%, 92%, 0.85)" />
+                        {rainbowProgress > 0 ? (
+                          <>
+                            <stop offset="0%" stopColor={`hsla(${rainbowProgress * 360}, ${60 * rainbowProgress}%, ${97 - rainbowProgress * 15}%, 0.95)`} />
+                            <stop offset="40%" stopColor={`hsla(${rainbowProgress * 360 + 60}, ${50 * rainbowProgress}%, ${95 - rainbowProgress * 10}%, 0.9)`} />
+                            <stop offset="70%" stopColor={`hsla(${rainbowProgress * 360 + 120}, ${45 * rainbowProgress}%, ${93 - rainbowProgress * 8}%, 0.85)`} />
+                            <stop offset="100%" stopColor={`hsla(${rainbowProgress * 360 + 180}, ${40 * rainbowProgress}%, ${92 - rainbowProgress * 10}%, 0.8)`} />
+                          </>
+                        ) : (
+                          <>
+                            <stop offset="0%" stopColor="hsla(0, 0%, 100%, 0.99)" />
+                            <stop offset="60%" stopColor="hsla(0, 0%, 97%, 0.95)" />
+                            <stop offset="100%" stopColor="hsla(60, 8%, 92%, 0.85)" />
+                          </>
+                        )}
                       </radialGradient>
                     </defs>
                     {/* Center pistil */}
