@@ -54,7 +54,7 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
                 className="relative flex flex-col items-center"
                 initial={{ height: 0 }}
                 animate={{
-                  height: stage === "blooming" ? 120 : stage === "growing" ? 75 : 30,
+                  height: stage === "blooming" ? 200 : stage === "growing" ? 110 : 35,
                 }}
                 transition={{ duration: 2, ease: "easeOut" }}
               >
@@ -122,28 +122,28 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ duration: 2, ease: "easeOut", delay: 0.3 }}
                 >
-                  {/* Petals - larger, more realistic */}
-                  {[0, 72, 144, 216, 288].map((angle, i) => (
+                  {/* Petals - large, lush bloom */}
+                  {[0, 60, 120, 180, 240, 300].map((angle, i) => (
                     <motion.div
                       key={angle}
                       className="absolute"
                       style={{
-                        transform: `rotate(${angle}deg) translateY(-22px)`,
+                        transform: `rotate(${angle}deg) translateY(-30px)`,
                       }}
                       initial={{ scale: 0, opacity: 0 }}
                       animate={{ scale: 1, opacity: 0.97 }}
-                      transition={{ duration: 1.2, delay: 0.5 + i * 0.15 }}
+                      transition={{ duration: 1.2, delay: 0.5 + i * 0.12 }}
                     >
                       <div
                         style={{
-                          width: 24,
-                          height: 38,
+                          width: 34,
+                          height: 52,
                           borderRadius: "50% 50% 45% 45%",
                           background: `radial-gradient(ellipse at 50% 40%, 
-                            hsla(0, 0%, 100%, 0.98), 
-                            hsla(0, 0%, 96%, 0.95),
-                            hsla(60, 10%, 92%, 0.85))`,
-                          boxShadow: "0 0 12px hsla(0, 0%, 100%, 0.3)",
+                            hsla(0, 0%, 100%, 0.99), 
+                            hsla(0, 0%, 97%, 0.96),
+                            hsla(60, 8%, 93%, 0.88))`,
+                          boxShadow: "0 0 16px hsla(0, 0%, 100%, 0.35)",
                         }}
                       />
                     </motion.div>
