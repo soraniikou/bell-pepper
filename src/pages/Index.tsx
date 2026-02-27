@@ -191,7 +191,7 @@ const Index = () => {
           <motion.p
             className="absolute bottom-12 left-0 right-0 text-center pointer-events-none font-serif-elegant"
             style={{
-              fontSize: "clamp(1.8rem, 5vw, 3rem)",
+              fontSize: hintText === "石を撫でて" ? "clamp(1.8rem, 5vw, 3rem)" : "clamp(0.9rem, 2.5vw, 1.2rem)",
               letterSpacing: "0.15em",
               color: `hsla(0, 0%, ${skyProgress > 0.7 ? 30 : 85}%, 0.5)`,
             }}
