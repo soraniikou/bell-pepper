@@ -103,23 +103,14 @@ const Index = () => {
         transition={{ duration: 2, delay: 0.5 }}
       >
         <h1
-          className="text-2xl font-light tracking-[0.3em] font-serif-elegant"
+          className="text-lg font-light tracking-[0.25em] font-serif-elegant italic"
           style={{
             color: `hsla(0, 0%, ${skyProgress > 0.7 ? 20 : 90}%, ${0.5 + skyProgress * 0.2})`,
             transition: "color 0.5s ease",
           }}
         >
-          昇華
+          Wishing a lovely life too
         </h1>
-        <p
-          className="text-xs tracking-[0.5em] mt-1 font-serif-elegant italic"
-          style={{
-            color: `hsla(0, 0%, ${skyProgress > 0.7 ? 30 : 80}%, ${0.35 + skyProgress * 0.15})`,
-            transition: "color 0.5s ease",
-          }}
-        >
-          Sublimation
-        </p>
       </motion.div>
 
       {/* Rain */}
