@@ -89,7 +89,7 @@ const Index = () => {
   // Determine the hint text
   const hintText = useMemo(() => {
     if (!hasInteracted) return "画面をスワイプして空を変えよう";
-    if (growthLevel < 0.1) return "石を撫でて";
+    if (growthLevel < 0.3) return "石を撫でて";
     if (isBlooming) return "";
     return "";
   }, [hasInteracted, growthLevel, isBlooming]);
@@ -189,8 +189,10 @@ const Index = () => {
       <AnimatePresence>
         {hintText && (
           <motion.p
-            className="absolute bottom-12 left-0 right-0 text-center text-2xl md:text-3xl font-serif-elegant pointer-events-none"
+            className="absolute bottom-12 left-0 right-0 text-center pointer-events-none font-serif-elegant"
             style={{
+              fontSize: "clamp(1.8rem, 5vw, 3rem)",
+              letterSpacing: "0.15em",
               color: `hsla(0, 0%, ${skyProgress > 0.7 ? 30 : 85}%, 0.5)`,
             }}
             initial={{ opacity: 0 }}
