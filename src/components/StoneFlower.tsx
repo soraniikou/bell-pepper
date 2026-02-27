@@ -374,82 +374,68 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
               animate={{ scale: 1, y: 0, opacity: 1, rotate: 0 }}
               transition={{ duration: 2.5, ease: "easeOut" }}
             >
-              {/* Hands cupping the petal */}
+              {/* Arms wrapping around petal */}
               <svg
                 width="460"
                 height="620"
                 viewBox="-230 -260 460 620"
                 style={{ filter: "drop-shadow(0 8px 32px hsla(0,0%,70%,0.4))" }}
               >
-                {/* Left arm from elbow */}
-                <motion.g
-                  initial={{ opacity: 0, x: -40 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 2, delay: 1 }}
-                >
-                  {/* Left forearm */}
-                  <path
-                    d="M-220,350 C-210,310 -195,270 -175,230 C-160,195 -150,155 -140,115 C-135,90 -130,65 -120,50"
-                    fill="none"
-                    stroke="hsla(25, 25%, 80%, 0.9)"
-                    strokeWidth="30"
-                    strokeLinecap="round"
-                  />
-                  {/* Left wrist to hand */}
-                  <path
-                    d="M-120,50 C-115,35 -108,25 -98,30 C-88,35 -82,55 -80,75"
-                    fill="none"
-                    stroke="hsla(25, 28%, 81%, 0.9)"
-                    strokeWidth="26"
-                    strokeLinecap="round"
-                  />
-                  {/* Left fingers curving up */}
-                  <path d="M-95,25 C-92,5 -85,-10 -78,-5 C-71,0 -72,20 -76,35" fill="none" stroke="hsla(25, 28%, 80%, 0.85)" strokeWidth="9" strokeLinecap="round" />
-                  <path d="M-85,22 C-80,0 -72,-12 -65,-5 C-58,2 -60,22 -65,35" fill="none" stroke="hsla(25, 28%, 80%, 0.85)" strokeWidth="8.5" strokeLinecap="round" />
-                  <path d="M-75,25 C-70,8 -63,-2 -57,5 C-51,12 -54,30 -58,40" fill="none" stroke="hsla(25, 28%, 80%, 0.85)" strokeWidth="8" strokeLinecap="round" />
-                  <path d="M-68,32 C-64,18 -58,10 -53,16 C-48,22 -50,38 -54,46" fill="none" stroke="hsla(25, 28%, 80%, 0.85)" strokeWidth="7.5" strokeLinecap="round" />
-                  {/* Left thumb */}
-                  <path d="M-122,48 C-132,32 -136,15 -128,8 C-120,2 -114,18 -116,35" fill="none" stroke="hsla(25, 28%, 80%, 0.85)" strokeWidth="9" strokeLinecap="round" />
-                </motion.g>
-
-                {/* Right arm from elbow */}
-                <motion.g
-                  initial={{ opacity: 0, x: 40 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 2, delay: 1 }}
-                >
-                  {/* Right forearm */}
-                  <path
-                    d="M220,350 C210,310 195,270 175,230 C160,195 150,155 140,115 C135,90 130,65 120,50"
-                    fill="none"
-                    stroke="hsla(25, 25%, 80%, 0.9)"
-                    strokeWidth="30"
-                    strokeLinecap="round"
-                  />
-                  {/* Right wrist to hand */}
-                  <path
-                    d="M120,50 C115,35 108,25 98,30 C88,35 82,55 80,75"
-                    fill="none"
-                    stroke="hsla(25, 28%, 81%, 0.9)"
-                    strokeWidth="26"
-                    strokeLinecap="round"
-                  />
-                  {/* Right fingers curving up */}
-                  <path d="M95,25 C92,5 85,-10 78,-5 C71,0 72,20 76,35" fill="none" stroke="hsla(25, 28%, 80%, 0.85)" strokeWidth="9" strokeLinecap="round" />
-                  <path d="M85,22 C80,0 72,-12 65,-5 C58,2 60,22 65,35" fill="none" stroke="hsla(25, 28%, 80%, 0.85)" strokeWidth="8.5" strokeLinecap="round" />
-                  <path d="M75,25 C70,8 63,-2 57,5 C51,12 54,30 58,40" fill="none" stroke="hsla(25, 28%, 80%, 0.85)" strokeWidth="8" strokeLinecap="round" />
-                  <path d="M68,32 C64,18 58,10 53,16 C48,22 50,38 54,46" fill="none" stroke="hsla(25, 28%, 80%, 0.85)" strokeWidth="7.5" strokeLinecap="round" />
-                  {/* Right thumb */}
-                  <path d="M122,48 C132,32 136,15 128,8 C120,2 114,18 116,35" fill="none" stroke="hsla(25, 28%, 80%, 0.85)" strokeWidth="9" strokeLinecap="round" />
-                </motion.g>
-
-                {/* Petal shape (on top of hands) */}
+                {/* Petal shape (behind hands) */}
                 <path
                   d={`M0,-220 C${-80},${-160} ${-140},${-40} ${-130},${60} C${-120},${140} ${-70},${200} 0,${230} C${70},${200} ${120},${140} ${130},${60} C${140},${-40} ${80},${-160} 0,-220`}
                   fill="hsla(0, 0%, 100%, 0.92)"
                   stroke="hsla(0, 0%, 85%, 0.5)"
                   strokeWidth="1"
                 />
+
+                {/* Left arm - elbow from bottom-left, wrapping around petal, hand at center */}
+                <motion.g
+                  initial={{ opacity: 0, x: -30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 2, delay: 1 }}
+                >
+                  {/* Left forearm curving around petal */}
+                  <path
+                    d="M-220,340 C-210,290 -190,240 -170,190 C-155,150 -148,110 -145,70 C-142,40 -135,10 -120,-10 C-105,-25 -85,-20 -65,-5 C-45,12 -30,30 -15,45"
+                    fill="none"
+                    stroke="hsla(25, 25%, 80%, 0.85)"
+                    strokeWidth="28"
+                    strokeLinecap="round"
+                  />
+                  {/* Left hand/fingers resting on center */}
+                  <path d="M-15,45 C-8,50 -2,52 5,50" fill="none" stroke="hsla(25, 28%, 81%, 0.8)" strokeWidth="24" strokeLinecap="round" />
+                  <path d="M5,42 C12,35 18,30 22,32" fill="none" stroke="hsla(25, 28%, 80%, 0.75)" strokeWidth="8" strokeLinecap="round" />
+                  <path d="M2,48 C10,42 17,38 20,42" fill="none" stroke="hsla(25, 28%, 80%, 0.75)" strokeWidth="7.5" strokeLinecap="round" />
+                  <path d="M-2,54 C6,50 14,48 17,52" fill="none" stroke="hsla(25, 28%, 80%, 0.75)" strokeWidth="7" strokeLinecap="round" />
+                  <path d="M-6,58 C0,56 8,55 12,58" fill="none" stroke="hsla(25, 28%, 80%, 0.75)" strokeWidth="6.5" strokeLinecap="round" />
+                  {/* Left thumb */}
+                  <path d="M-25,38 C-30,25 -28,12 -20,15 C-14,18 -15,32 -18,42" fill="none" stroke="hsla(25, 28%, 80%, 0.8)" strokeWidth="8.5" strokeLinecap="round" />
+                </motion.g>
+
+                {/* Right arm - elbow from bottom-right, wrapping around petal, hand at center */}
+                <motion.g
+                  initial={{ opacity: 0, x: 30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 2, delay: 1.2 }}
+                >
+                  {/* Right forearm curving around petal */}
+                  <path
+                    d="M220,340 C210,290 190,240 170,190 C155,150 148,110 145,70 C142,40 135,10 120,-10 C105,-25 85,-20 65,-5 C45,12 30,30 15,45"
+                    fill="none"
+                    stroke="hsla(25, 25%, 80%, 0.85)"
+                    strokeWidth="28"
+                    strokeLinecap="round"
+                  />
+                  {/* Right hand/fingers resting on center */}
+                  <path d="M15,45 C8,50 2,52 -5,50" fill="none" stroke="hsla(25, 28%, 81%, 0.8)" strokeWidth="24" strokeLinecap="round" />
+                  <path d="M-5,42 C-12,35 -18,30 -22,32" fill="none" stroke="hsla(25, 28%, 80%, 0.75)" strokeWidth="8" strokeLinecap="round" />
+                  <path d="M-2,48 C-10,42 -17,38 -20,42" fill="none" stroke="hsla(25, 28%, 80%, 0.75)" strokeWidth="7.5" strokeLinecap="round" />
+                  <path d="M2,54 C-6,50 -14,48 -17,52" fill="none" stroke="hsla(25, 28%, 80%, 0.75)" strokeWidth="7" strokeLinecap="round" />
+                  <path d="M6,58 C0,56 -8,55 -12,58" fill="none" stroke="hsla(25, 28%, 80%, 0.75)" strokeWidth="6.5" strokeLinecap="round" />
+                  {/* Right thumb */}
+                  <path d="M25,38 C30,25 28,12 20,15 C14,18 15,32 18,42" fill="none" stroke="hsla(25, 28%, 80%, 0.8)" strokeWidth="8.5" strokeLinecap="round" />
+                </motion.g>
                 {/* Subtle vein lines */}
                 <path
                   d="M0,-200 C-5,-100 -3,0 0,210"
