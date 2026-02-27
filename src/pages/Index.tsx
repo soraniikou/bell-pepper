@@ -109,7 +109,7 @@ const Index = () => {
             transition: "color 0.5s ease",
           }}
         >
-          Wishing a lovely life too
+          Wishing a lovely life to
         </h1>
       </motion.div>
 
