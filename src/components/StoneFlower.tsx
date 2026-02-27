@@ -376,53 +376,71 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
             >
               {/* Hands cupping the petal */}
               <svg
-                width="400"
-                height="560"
-                viewBox="-200 -260 400 560"
+                width="460"
+                height="620"
+                viewBox="-230 -260 460 620"
                 style={{ filter: "drop-shadow(0 8px 32px hsla(0,0%,70%,0.4))" }}
               >
-                {/* Left hand */}
+                {/* Left arm from elbow */}
                 <motion.g
-                  initial={{ opacity: 0, x: -30 }}
+                  initial={{ opacity: 0, x: -40 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 2, delay: 1 }}
                 >
-                  {/* Left palm */}
+                  {/* Left forearm */}
                   <path
-                    d="M-130,180 C-145,140 -155,80 -148,40 C-142,10 -130,-10 -115,0 C-105,8 -100,30 -100,50 L-100,50 C-108,20 -100,-5 -90,0 C-80,5 -78,30 -80,50 L-80,50 C-85,25 -75,5 -65,10 C-55,15 -55,40 -58,55 L-58,55 C-60,35 -52,20 -45,25 C-38,30 -38,50 -42,65 C-50,100 -55,140 -60,170 C-70,200 -90,220 -110,220 C-125,220 -135,205 -130,180 Z"
-                    fill="hsla(25, 30%, 82%, 0.85)"
-                    stroke="hsla(25, 20%, 70%, 0.4)"
-                    strokeWidth="0.8"
+                    d="M-220,350 C-210,310 -195,270 -175,230 C-160,195 -150,155 -140,115 C-135,90 -130,65 -120,50"
+                    fill="none"
+                    stroke="hsla(25, 25%, 80%, 0.9)"
+                    strokeWidth="30"
+                    strokeLinecap="round"
                   />
+                  {/* Left wrist to hand */}
+                  <path
+                    d="M-120,50 C-115,35 -108,25 -98,30 C-88,35 -82,55 -80,75"
+                    fill="none"
+                    stroke="hsla(25, 28%, 81%, 0.9)"
+                    strokeWidth="26"
+                    strokeLinecap="round"
+                  />
+                  {/* Left fingers curving up */}
+                  <path d="M-95,25 C-92,5 -85,-10 -78,-5 C-71,0 -72,20 -76,35" fill="none" stroke="hsla(25, 28%, 80%, 0.85)" strokeWidth="9" strokeLinecap="round" />
+                  <path d="M-85,22 C-80,0 -72,-12 -65,-5 C-58,2 -60,22 -65,35" fill="none" stroke="hsla(25, 28%, 80%, 0.85)" strokeWidth="8.5" strokeLinecap="round" />
+                  <path d="M-75,25 C-70,8 -63,-2 -57,5 C-51,12 -54,30 -58,40" fill="none" stroke="hsla(25, 28%, 80%, 0.85)" strokeWidth="8" strokeLinecap="round" />
+                  <path d="M-68,32 C-64,18 -58,10 -53,16 C-48,22 -50,38 -54,46" fill="none" stroke="hsla(25, 28%, 80%, 0.85)" strokeWidth="7.5" strokeLinecap="round" />
                   {/* Left thumb */}
-                  <path
-                    d="M-130,180 C-140,165 -150,145 -145,130 C-140,120 -130,125 -128,140 C-126,150 -128,165 -130,180"
-                    fill="hsla(25, 30%, 80%, 0.8)"
-                    stroke="hsla(25, 20%, 70%, 0.3)"
-                    strokeWidth="0.6"
-                  />
+                  <path d="M-122,48 C-132,32 -136,15 -128,8 C-120,2 -114,18 -116,35" fill="none" stroke="hsla(25, 28%, 80%, 0.85)" strokeWidth="9" strokeLinecap="round" />
                 </motion.g>
 
-                {/* Right hand */}
+                {/* Right arm from elbow */}
                 <motion.g
-                  initial={{ opacity: 0, x: 30 }}
+                  initial={{ opacity: 0, x: 40 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 2, delay: 1 }}
                 >
-                  {/* Right palm */}
+                  {/* Right forearm */}
                   <path
-                    d="M130,180 C145,140 155,80 148,40 C142,10 130,-10 115,0 C105,8 100,30 100,50 L100,50 C108,20 100,-5 90,0 C80,5 78,30 80,50 L80,50 C85,25 75,5 65,10 C55,15 55,40 58,55 L58,55 C60,35 52,20 45,25 C38,30 38,50 42,65 C50,100 55,140 60,170 C70,200 90,220 110,220 C125,220 135,205 130,180 Z"
-                    fill="hsla(25, 30%, 82%, 0.85)"
-                    stroke="hsla(25, 20%, 70%, 0.4)"
-                    strokeWidth="0.8"
+                    d="M220,350 C210,310 195,270 175,230 C160,195 150,155 140,115 C135,90 130,65 120,50"
+                    fill="none"
+                    stroke="hsla(25, 25%, 80%, 0.9)"
+                    strokeWidth="30"
+                    strokeLinecap="round"
                   />
+                  {/* Right wrist to hand */}
+                  <path
+                    d="M120,50 C115,35 108,25 98,30 C88,35 82,55 80,75"
+                    fill="none"
+                    stroke="hsla(25, 28%, 81%, 0.9)"
+                    strokeWidth="26"
+                    strokeLinecap="round"
+                  />
+                  {/* Right fingers curving up */}
+                  <path d="M95,25 C92,5 85,-10 78,-5 C71,0 72,20 76,35" fill="none" stroke="hsla(25, 28%, 80%, 0.85)" strokeWidth="9" strokeLinecap="round" />
+                  <path d="M85,22 C80,0 72,-12 65,-5 C58,2 60,22 65,35" fill="none" stroke="hsla(25, 28%, 80%, 0.85)" strokeWidth="8.5" strokeLinecap="round" />
+                  <path d="M75,25 C70,8 63,-2 57,5 C51,12 54,30 58,40" fill="none" stroke="hsla(25, 28%, 80%, 0.85)" strokeWidth="8" strokeLinecap="round" />
+                  <path d="M68,32 C64,18 58,10 53,16 C48,22 50,38 54,46" fill="none" stroke="hsla(25, 28%, 80%, 0.85)" strokeWidth="7.5" strokeLinecap="round" />
                   {/* Right thumb */}
-                  <path
-                    d="M130,180 C140,165 150,145 145,130 C140,120 130,125 128,140 C126,150 128,165 130,180"
-                    fill="hsla(25, 30%, 80%, 0.8)"
-                    stroke="hsla(25, 20%, 70%, 0.3)"
-                    strokeWidth="0.6"
-                  />
+                  <path d="M122,48 C132,32 136,15 128,8 C120,2 114,18 116,35" fill="none" stroke="hsla(25, 28%, 80%, 0.85)" strokeWidth="9" strokeLinecap="round" />
                 </motion.g>
 
                 {/* Petal shape (on top of hands) */}
