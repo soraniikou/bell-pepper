@@ -367,13 +367,14 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
               transition={{ duration: 2 }}
             />
             
-            {/* Hands holding petal - using photo */}
+            {/* Container for hands + petal */}
             <motion.div
               className="relative flex items-center justify-center"
               initial={{ scale: 0, y: 300, opacity: 0 }}
               animate={{ scale: 1, y: 0, opacity: 1 }}
               transition={{ duration: 2.5, ease: "easeOut" }}
             >
+              {/* Hands photo */}
               <img
                 src="/images/hands.png"
                 alt="両手で花びらを包む"
@@ -381,32 +382,58 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
                 style={{ filter: "drop-shadow(0 8px 24px hsla(0,0%,60%,0.3))" }}
                 draggable={false}
               />
-              
-              {/* Text input area overlaid on the photo */}
+
+              {/* Large white petal floating above hands */}
               <motion.div
-                className="absolute inset-0 flex flex-col items-center justify-center px-16"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 2, duration: 1.5 }}
+                className="absolute flex items-center justify-center"
+                style={{ top: "-35%" }}
+                initial={{ scale: 0, opacity: 0, y: 60 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                transition={{ duration: 2, delay: 1, ease: "easeOut" }}
               >
-                <p
-                  className="text-sm tracking-[0.3em] mb-4 font-serif-elegant italic"
-                  style={{ color: "hsla(210, 15%, 40%, 0.7)" }}
+                <svg
+                  width="280"
+                  height="380"
+                  viewBox="-140 -190 280 380"
+                  style={{ filter: "drop-shadow(0 6px 20px hsla(0,0%,75%,0.4))" }}
                 >
-                  あなたの願いを
-                </p>
-                <textarea
-                  value={wishText}
-                  onChange={(e) => setWishText(e.target.value)}
-                  placeholder="ここに願いを書いてください..."
-                  className="w-44 h-32 bg-transparent border-none outline-none resize-none text-center font-serif-elegant italic text-base leading-relaxed"
-                  style={{
-                    color: "hsla(210, 20%, 30%, 0.85)",
-                    caretColor: "hsla(210, 20%, 50%, 0.6)",
-                  }}
-                  maxLength={200}
-                  autoFocus
-                />
+                  <path
+                    d={`M0,-175 C-65,-130 -115,-30 -105,50 C-95,115 -55,160 0,180 C55,160 95,115 105,50 C115,-30 65,-130 0,-175`}
+                    fill="hsla(0, 0%, 100%, 0.94)"
+                    stroke="hsla(0, 0%, 88%, 0.5)"
+                    strokeWidth="1"
+                  />
+                  <path d="M0,-160 C-3,-80 -2,0 0,165" stroke="hsla(60, 10%, 85%, 0.5)" strokeWidth="1" fill="none" />
+                  <path d="M0,-120 C-25,-60 -40,0 -32,80" stroke="hsla(60, 10%, 88%, 0.3)" strokeWidth="0.8" fill="none" />
+                  <path d="M0,-120 C25,-60 40,0 32,80" stroke="hsla(60, 10%, 88%, 0.3)" strokeWidth="0.8" fill="none" />
+                </svg>
+
+                {/* Text input on the petal */}
+                <motion.div
+                  className="absolute inset-0 flex flex-col items-center justify-center px-14"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 2.5, duration: 1.5 }}
+                >
+                  <p
+                    className="text-sm tracking-[0.3em] mb-4 font-serif-elegant italic"
+                    style={{ color: "hsla(210, 15%, 45%, 0.65)" }}
+                  >
+                    あなたの願いを
+                  </p>
+                  <textarea
+                    value={wishText}
+                    onChange={(e) => setWishText(e.target.value)}
+                    placeholder="ここに願いを書いてください..."
+                    className="w-40 h-28 bg-transparent border-none outline-none resize-none text-center font-serif-elegant italic text-base leading-relaxed"
+                    style={{
+                      color: "hsla(210, 20%, 30%, 0.85)",
+                      caretColor: "hsla(210, 20%, 50%, 0.6)",
+                    }}
+                    maxLength={200}
+                    autoFocus
+                  />
+                </motion.div>
               </motion.div>
             </motion.div>
           </motion.div>
