@@ -103,13 +103,16 @@ const Index = () => {
         transition={{ duration: 2, delay: 0.5 }}
       >
         <h1
-          className="text-lg font-light tracking-[0.25em] font-serif-elegant italic"
+          className="font-light font-serif-elegant italic"
           style={{
             color: `hsla(0, 0%, ${skyProgress > 0.7 ? 20 : 90}%, ${0.5 + skyProgress * 0.2})`,
             transition: "color 0.5s ease",
+            fontSize: "clamp(1.5rem, 4vw, 2.5rem)",
+            letterSpacing: "0.25em",
           }}
         >
-          Wishing a lovely life to
+          <span style={{ fontSize: "1.4em", fontWeight: 300 }}>Wishing</span>{" "}
+          a lovely life
         </h1>
       </motion.div>
 

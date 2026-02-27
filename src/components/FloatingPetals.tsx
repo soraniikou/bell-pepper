@@ -44,14 +44,17 @@ export const FloatingPetals = ({ active }: FloatingPetalsProps) => {
             ease: "easeInOut",
           }}
         >
-          <div
-            style={{
-              width: petal.size,
-              height: petal.size * 1.4,
-              borderRadius: "50% 50% 50% 50%",
-              background: `radial-gradient(ellipse, hsla(0, 0%, 100%, 0.95), hsla(0, 0%, 96%, 0.7))`,
-            }}
-          />
+          <svg
+            width={petal.size}
+            height={petal.size * 1.6}
+            viewBox="0 0 20 32"
+            style={{ filter: "drop-shadow(0 0 4px hsla(0,0%,100%,0.3))" }}
+          >
+            <path
+              d="M10,0 C4,8 0,18 10,32 C20,18 16,8 10,0Z"
+              fill="hsla(0, 0%, 100%, 0.95)"
+            />
+          </svg>
         </motion.div>
       ))}
     </div>

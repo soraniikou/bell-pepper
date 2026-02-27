@@ -117,58 +117,61 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
               {/* Flower head */}
               {stage === "blooming" && (
                 <motion.div
-                  className="absolute -top-10 flex items-center justify-center"
+                  className="absolute -top-14 flex items-center justify-center"
                   initial={{ scale: 0, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ duration: 2, ease: "easeOut", delay: 0.3 }}
                 >
-                  {/* Petals - large, lush bloom */}
-                  {[0, 60, 120, 180, 240, 300].map((angle, i) => (
-                    <motion.div
-                      key={angle}
-                      className="absolute"
-                      style={{
-                        transform: `rotate(${angle}deg) translateY(-30px)`,
-                      }}
-                      initial={{ scale: 0, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 0.97 }}
-                      transition={{ duration: 1.2, delay: 0.5 + i * 0.12 }}
-                    >
-                      <div
-                        style={{
-                          width: 34,
-                          height: 52,
-                          borderRadius: "50% 50% 45% 45%",
-                          background: `radial-gradient(ellipse at 50% 40%, 
-                            hsla(0, 0%, 100%, 0.99), 
-                            hsla(0, 0%, 97%, 0.96),
-                            hsla(60, 8%, 93%, 0.88))`,
-                          boxShadow: "0 0 16px hsla(0, 0%, 100%, 0.35)",
-                        }}
+                  {/* Star-shaped petals like real paprika flower */}
+                  <svg width="120" height="120" viewBox="-60 -60 120 120" style={{ overflow: "visible" }}>
+                    {[0, 60, 120, 180, 240, 300].map((angle, i) => (
+                      <motion.path
+                        key={angle}
+                        d={`M0,0 C${-6},${-12} ${-10},${-38} 0,${-48} C${10},${-38} ${6},${-12} 0,0`}
+                        transform={`rotate(${angle})`}
+                        fill="url(#petalGrad)"
+                        initial={{ scale: 0, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 0.95 }}
+                        transition={{ duration: 1.2, delay: 0.5 + i * 0.12 }}
                       />
-                    </motion.div>
-                  ))}
-                  {/* Center - pistil/stamen */}
-                  <motion.div
-                    className="relative z-10 flex items-center justify-center"
-                    style={{
-                      width: 14,
-                      height: 14,
-                    }}
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ duration: 0.8, delay: 1.5 }}
-                  >
-                    <div
-                      style={{
-                        width: 14,
-                        height: 14,
-                        borderRadius: "50%",
-                        background: "radial-gradient(circle, hsl(55, 80%, 75%), hsl(90, 40%, 55%))",
-                        boxShadow: "0 0 8px hsla(55, 70%, 65%, 0.5)",
-                      }}
+                    ))}
+                    <defs>
+                      <radialGradient id="petalGrad" cx="50%" cy="30%">
+                        <stop offset="0%" stopColor="hsla(0, 0%, 100%, 0.99)" />
+                        <stop offset="60%" stopColor="hsla(0, 0%, 97%, 0.95)" />
+                        <stop offset="100%" stopColor="hsla(60, 8%, 92%, 0.85)" />
+                      </radialGradient>
+                    </defs>
+                    {/* Center pistil */}
+                    <motion.circle
+                      cx="0" cy="0" r="8"
+                      fill="url(#centerGrad)"
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ duration: 0.8, delay: 1.5 }}
                     />
-                  </motion.div>
+                    <defs>
+                      <radialGradient id="centerGrad">
+                        <stop offset="0%" stopColor="hsl(55, 80%, 75%)" />
+                        <stop offset="100%" stopColor="hsl(90, 40%, 55%)" />
+                      </radialGradient>
+                    </defs>
+                    {/* Small stamens */}
+                    {[0, 72, 144, 216, 288].map((a) => (
+                      <motion.line
+                        key={`s${a}`}
+                        x1="0" y1="0"
+                        x2={Math.sin(a * Math.PI / 180) * 12}
+                        y2={-Math.cos(a * Math.PI / 180) * 12}
+                        stroke="hsl(55, 60%, 65%)"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 0.8 }}
+                        transition={{ delay: 1.8 }}
+                      />
+                    ))}
+                  </svg>
                 </motion.div>
               )}
 
