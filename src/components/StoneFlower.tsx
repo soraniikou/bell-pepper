@@ -189,12 +189,13 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
                     {petalAngles.map((angle, i) => {
                       // Skip the falling petal (index 2 = 144°)
                       if (fallingPetal && i === 2) return null;
+                      const petalHue = (i * 72) + rainbowProgress * 360;
                       return (
                         <motion.path
                           key={angle}
                           d={`M0,0 C${-22},${-40} ${-35},${-120} 0,${-150} C${35},${-120} ${22},${-40} 0,0`}
                           transform={`rotate(${angle})`}
-                          fill="url(#petalGrad)"
+                          fill={rainbowProgress > 0 ? `url(#petalGrad${i})` : "url(#petalGradWhite)"}
                           initial={{ scale: 0, opacity: 0 }}
                           animate={{ scale: 1, opacity: 0.95 }}
                           transition={{ duration: 1.2, delay: 0.5 + i * 0.15 }}
@@ -202,22 +203,25 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
                       );
                     })}
                     <defs>
-                      <radialGradient id="petalGrad" cx="50%" cy="30%">
-                        {rainbowProgress > 0 ? (
-                          <>
-                            <stop offset="0%" stopColor={`hsla(${rainbowProgress * 360}, ${60 * rainbowProgress}%, ${97 - rainbowProgress * 15}%, 0.95)`} />
-                            <stop offset="40%" stopColor={`hsla(${rainbowProgress * 360 + 60}, ${50 * rainbowProgress}%, ${95 - rainbowProgress * 10}%, 0.9)`} />
-                            <stop offset="70%" stopColor={`hsla(${rainbowProgress * 360 + 120}, ${45 * rainbowProgress}%, ${93 - rainbowProgress * 8}%, 0.85)`} />
-                            <stop offset="100%" stopColor={`hsla(${rainbowProgress * 360 + 180}, ${40 * rainbowProgress}%, ${92 - rainbowProgress * 10}%, 0.8)`} />
-                          </>
-                        ) : (
-                          <>
-                            <stop offset="0%" stopColor="hsla(0, 0%, 100%, 0.99)" />
-                            <stop offset="60%" stopColor="hsla(0, 0%, 97%, 0.95)" />
-                            <stop offset="100%" stopColor="hsla(60, 8%, 92%, 0.85)" />
-                          </>
-                        )}
+                      {/* White gradient for before rainbow */}
+                      <radialGradient id="petalGradWhite" cx="50%" cy="30%">
+                        <stop offset="0%" stopColor="hsla(0, 0%, 100%, 0.99)" />
+                        <stop offset="60%" stopColor="hsla(0, 0%, 97%, 0.95)" />
+                        <stop offset="100%" stopColor="hsla(60, 8%, 92%, 0.85)" />
                       </radialGradient>
+                      {/* Individual rainbow gradients per petal */}
+                      {petalAngles.map((_, i) => {
+                        const hue = (i * 72) + rainbowProgress * 360;
+                        const sat = Math.min(85, 85 * rainbowProgress);
+                        const lit = 70 - rainbowProgress * 20;
+                        return (
+                          <radialGradient key={`pg${i}`} id={`petalGrad${i}`} cx="50%" cy="30%">
+                            <stop offset="0%" stopColor={`hsla(${hue}, ${sat}%, ${lit + 15}%, 0.95)`} />
+                            <stop offset="50%" stopColor={`hsla(${hue + 30}, ${sat}%, ${lit}%, 0.9)`} />
+                            <stop offset="100%" stopColor={`hsla(${hue + 60}, ${sat - 10}%, ${lit - 5}%, 0.85)`} />
+                          </radialGradient>
+                        );
+                      })}
                     </defs>
                     {/* Center pistil */}
                     <motion.circle
