@@ -13,6 +13,10 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        zen: ['"Zen Maru Gothic"', 'sans-serif'],
+        serif: ['"Cormorant Garamond"', 'serif'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -47,6 +51,18 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        stone: {
+          DEFAULT: "hsl(var(--stone))",
+          shadow: "hsl(var(--stone-shadow))",
+        },
+        sprout: "hsl(var(--sprout))",
+        flower: {
+          white: "hsl(var(--flower-white))",
+          center: "hsl(var(--flower-center))",
+        },
+        rain: "hsl(var(--rain-drop))",
+        star: "hsl(var(--star-glow))",
+        whisper: "hsl(var(--whisper))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -65,20 +81,12 @@ export default {
       },
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
         },
       },
       animation: {
