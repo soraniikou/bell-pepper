@@ -472,6 +472,61 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
                     autoFocus
                   />
                 </motion.div>
+
+                {/* White bird circling the petal */}
+                <motion.div
+                  className="absolute pointer-events-none"
+                  style={{ width: 360, height: 360, top: "50%", left: "50%", marginTop: -180, marginLeft: -180 }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 3, duration: 1.5 }}
+                >
+                  <motion.div
+                    className="absolute"
+                    style={{ top: 0, left: "50%", marginLeft: -15 }}
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                  >
+                    <motion.div
+                      style={{ transformOrigin: "15px 180px" }}
+                    >
+                      <svg width="30" height="24" viewBox="-15 -12 30 24" style={{ filter: "drop-shadow(0 2px 6px hsla(0,0%,70%,0.3))" }}>
+                        {/* Bird body */}
+                        <ellipse cx="0" cy="2" rx="5" ry="3.5" fill="hsla(0, 0%, 98%, 0.95)" />
+                        {/* Head */}
+                        <circle cx="6" cy="-1" r="2.8" fill="hsla(0, 0%, 97%, 0.95)" />
+                        {/* Beak */}
+                        <path d="M8.5,-1.5 L11,-1 L8.5,0" fill="hsla(35, 60%, 55%, 0.9)" />
+                        {/* Eye */}
+                        <circle cx="7" cy="-1.8" r="0.6" fill="hsla(0, 0%, 15%, 0.8)" />
+                        {/* Left wing */}
+                        <motion.path
+                          d="M-2,0 C-6,-4 -12,-8 -14,-5 C-12,-2 -6,0 -2,1"
+                          fill="hsla(0, 0%, 95%, 0.9)"
+                          animate={{ d: [
+                            "M-2,0 C-6,-4 -12,-8 -14,-5 C-12,-2 -6,0 -2,1",
+                            "M-2,0 C-6,-8 -12,-14 -14,-10 C-12,-6 -6,-1 -2,1",
+                            "M-2,0 C-6,-4 -12,-8 -14,-5 C-12,-2 -6,0 -2,1",
+                          ]}}
+                          transition={{ duration: 0.6, repeat: Infinity, ease: "easeInOut" }}
+                        />
+                        {/* Right wing */}
+                        <motion.path
+                          d="M-2,0 C-6,4 -12,8 -14,5 C-12,2 -6,0 -2,-1"
+                          fill="hsla(0, 0%, 93%, 0.85)"
+                          animate={{ d: [
+                            "M-2,0 C-6,4 -12,8 -14,5 C-12,2 -6,0 -2,-1",
+                            "M-2,0 C-6,8 -12,14 -14,10 C-12,6 -6,1 -2,-1",
+                            "M-2,0 C-6,4 -12,8 -14,5 C-12,2 -6,0 -2,-1",
+                          ]}}
+                          transition={{ duration: 0.6, repeat: Infinity, ease: "easeInOut" }}
+                        />
+                        {/* Tail */}
+                        <path d="M-5,1 C-8,3 -10,4 -9,1 C-10,-1 -8,-2 -5,0" fill="hsla(0, 0%, 95%, 0.85)" />
+                      </svg>
+                    </motion.div>
+                  </motion.div>
+                </motion.div>
               </motion.div>
             </motion.div>
           </motion.div>
