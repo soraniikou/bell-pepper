@@ -488,7 +488,7 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
                 >
                   <motion.div
                     animate={{ rotate: 360 }}
-                    transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                    transition={{ duration: 16, repeat: Infinity, ease: "linear" }}
                     style={{ width: 0, height: 0 }}
                   >
                     {/* Bird positioned at orbit radius */}
@@ -510,21 +510,21 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
                         <motion.path
                           fill="hsla(0, 0%, 95%, 0.92)"
                           animate={{ d: [
-                            "M-3,-1 C-7,-6 -14,-12 -17,-8 C-15,-3 -8,0 -3,1",
-                            "M-3,-1 C-7,-10 -14,-18 -17,-14 C-15,-8 -8,-2 -3,1",
-                            "M-3,-1 C-7,-6 -14,-12 -17,-8 C-15,-3 -8,0 -3,1",
+                            "M-3,-1 C-8,-8 -18,-16 -22,-11 C-19,-5 -10,0 -3,1",
+                            "M-3,-1 C-8,-14 -18,-24 -22,-18 C-19,-11 -10,-3 -3,1",
+                            "M-3,-1 C-8,-8 -18,-16 -22,-11 C-19,-5 -10,0 -3,1",
                           ]}}
-                          transition={{ duration: 0.5, repeat: Infinity, ease: "easeInOut" }}
+                          transition={{ duration: 0.7, repeat: Infinity, ease: "easeInOut" }}
                         />
                         {/* Right wing (bottom) */}
                         <motion.path
                           fill="hsla(0, 0%, 93%, 0.88)"
                           animate={{ d: [
-                            "M-3,3 C-7,8 -14,12 -17,8 C-15,4 -8,2 -3,1",
-                            "M-3,3 C-7,12 -14,18 -17,14 C-15,9 -8,4 -3,1",
-                            "M-3,3 C-7,8 -14,12 -17,8 C-15,4 -8,2 -3,1",
+                            "M-3,3 C-8,10 -18,16 -22,11 C-19,5 -10,2 -3,1",
+                            "M-3,3 C-8,16 -18,24 -22,18 C-19,12 -10,5 -3,1",
+                            "M-3,3 C-8,10 -18,16 -22,11 C-19,5 -10,2 -3,1",
                           ]}}
-                          transition={{ duration: 0.5, repeat: Infinity, ease: "easeInOut" }}
+                          transition={{ duration: 0.7, repeat: Infinity, ease: "easeInOut" }}
                         />
                         {/* Tail */}
                         <path d="M-7,1 C-11,4 -13,5 -12,1 C-13,-2 -11,-3 -7,0" fill="hsla(0, 0%, 95%, 0.88)" />
