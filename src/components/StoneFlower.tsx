@@ -430,20 +430,20 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
                   width="320"
                   height="420"
                   viewBox="-160 -210 320 420"
-                  style={{ filter: "drop-shadow(0 6px 22px hsla(0,0%,72%,0.4))" }}
+                  style={{ filter: "drop-shadow(0 6px 22px hsla(340,30%,75%,0.4))" }}
                 >
                   <path
                     d={`M0,-195 C-20,-175 -70,-130 -90,-75 C-110,-20 -115,40 -105,90 C-95,135 -65,170 -35,188 C-15,198 -5,202 0,203 C5,202 15,198 35,188 C65,170 95,135 105,90 C115,40 110,-20 90,-75 C70,-130 20,-175 0,-195`}
-                    fill="hsla(0, 0%, 100%, 0.96)"
-                    stroke="hsla(0, 0%, 88%, 0.45)"
+                    fill="hsla(345, 45%, 88%, 0.95)"
+                    stroke="hsla(340, 35%, 78%, 0.5)"
                     strokeWidth="1"
                   />
                   {/* Veins */}
-                  <path d="M0,-180 C-1,-90 -1,10 0,190" stroke="hsla(60, 10%, 85%, 0.45)" strokeWidth="1" fill="none" />
-                  <path d="M0,-140 C-20,-70 -35,0 -30,100" stroke="hsla(60, 10%, 88%, 0.28)" strokeWidth="0.7" fill="none" />
-                  <path d="M0,-140 C20,-70 35,0 30,100" stroke="hsla(60, 10%, 88%, 0.28)" strokeWidth="0.7" fill="none" />
-                  <path d="M0,-100 C-40,-40 -55,20 -50,85" stroke="hsla(60, 10%, 90%, 0.18)" strokeWidth="0.5" fill="none" />
-                  <path d="M0,-100 C40,-40 55,20 50,85" stroke="hsla(60, 10%, 90%, 0.18)" strokeWidth="0.5" fill="none" />
+                  <path d="M0,-180 C-1,-90 -1,10 0,190" stroke="hsla(340, 20%, 80%, 0.4)" strokeWidth="1" fill="none" />
+                  <path d="M0,-140 C-20,-70 -35,0 -30,100" stroke="hsla(340, 18%, 82%, 0.28)" strokeWidth="0.7" fill="none" />
+                  <path d="M0,-140 C20,-70 35,0 30,100" stroke="hsla(340, 18%, 82%, 0.28)" strokeWidth="0.7" fill="none" />
+                  <path d="M0,-100 C-40,-40 -55,20 -50,85" stroke="hsla(340, 15%, 85%, 0.18)" strokeWidth="0.5" fill="none" />
+                  <path d="M0,-100 C40,-40 55,20 50,85" stroke="hsla(340, 15%, 85%, 0.18)" strokeWidth="0.5" fill="none" />
                 </svg>
 
                 {/* Text input on the petal */}
