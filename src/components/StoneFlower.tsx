@@ -187,70 +187,74 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
                 >
                   <svg width="360" height="360" viewBox="-180 -180 360 360" style={{ overflow: "visible" }}>
                     {petalAngles.map((angle, i) => {
-                      // Skip the falling petal (index 2 = 144°)
                       if (fallingPetal && i === 2) return null;
-                      const petalHue = (i * 72) + rainbowProgress * 360;
                       return (
-                        <motion.path
+                        <motion.g
                           key={angle}
-                          d={`M0,0 C${-22},${-40} ${-35},${-120} 0,${-150} C${35},${-120} ${22},${-40} 0,0`}
                           transform={`rotate(${angle})`}
-                          fill={rainbowProgress > 0 ? `url(#petalGrad${i})` : "url(#petalGradWhite)"}
                           initial={{ scale: 0, opacity: 0 }}
                           animate={{ scale: 1, opacity: 0.95 }}
                           transition={{ duration: 1.2, delay: 0.5 + i * 0.15 }}
-                        />
+                        >
+                          <path
+                            d={`M0,0 C-15,-20 -40,-60 -45,-100 C-48,-125 -35,-145 -15,-155 C-5,-160 5,-160 15,-155 C35,-145 48,-125 45,-100 C40,-60 15,-20 0,0`}
+                            fill={rainbowProgress > 0 ? `url(#petalGrad${i})` : "url(#petalGradWhite)"}
+                          />
+                          <path
+                            d={`M0,-5 C-2,-50 -5,-100 0,-148`}
+                            stroke={rainbowProgress > 0 ? `hsla(0,0%,100%,0.2)` : `hsla(60,10%,85%,0.4)`}
+                            strokeWidth="0.8"
+                            fill="none"
+                          />
+                          <path
+                            d={`M0,-30 C-12,-60 -22,-90 -18,-130`}
+                            stroke={rainbowProgress > 0 ? `hsla(0,0%,100%,0.15)` : `hsla(60,10%,88%,0.3)`}
+                            strokeWidth="0.5"
+                            fill="none"
+                          />
+                          <path
+                            d={`M0,-30 C12,-60 22,-90 18,-130`}
+                            stroke={rainbowProgress > 0 ? `hsla(0,0%,100%,0.15)` : `hsla(60,10%,88%,0.3)`}
+                            strokeWidth="0.5"
+                            fill="none"
+                          />
+                        </motion.g>
                       );
                     })}
                     <defs>
-                      {/* White gradient for before rainbow */}
                       <radialGradient id="petalGradWhite" cx="50%" cy="30%">
                         <stop offset="0%" stopColor="hsla(0, 0%, 100%, 0.99)" />
-                        <stop offset="60%" stopColor="hsla(0, 0%, 97%, 0.95)" />
-                        <stop offset="100%" stopColor="hsla(60, 8%, 92%, 0.85)" />
+                        <stop offset="40%" stopColor="hsla(350, 5%, 97%, 0.96)" />
+                        <stop offset="100%" stopColor="hsla(340, 8%, 92%, 0.88)" />
                       </radialGradient>
-                      {/* Individual rainbow gradients per petal */}
                       {petalAngles.map((_, i) => {
                         const hue = (i * 72) + rainbowProgress * 360;
-                        const sat = Math.min(85, 85 * rainbowProgress);
-                        const lit = 70 - rainbowProgress * 20;
+                        const sat = Math.min(80, 80 * rainbowProgress);
+                        const lit = 55 - rainbowProgress * 15;
                         return (
-                          <radialGradient key={`pg${i}`} id={`petalGrad${i}`} cx="50%" cy="30%">
-                            <stop offset="0%" stopColor={`hsla(${hue}, ${sat}%, ${lit + 15}%, 0.95)`} />
-                            <stop offset="50%" stopColor={`hsla(${hue + 30}, ${sat}%, ${lit}%, 0.9)`} />
-                            <stop offset="100%" stopColor={`hsla(${hue + 60}, ${sat - 10}%, ${lit - 5}%, 0.85)`} />
+                          <radialGradient key={`pg${i}`} id={`petalGrad${i}`} cx="50%" cy="25%">
+                            <stop offset="0%" stopColor={`hsla(${hue}, ${sat}%, ${lit + 20}%, 0.95)`} />
+                            <stop offset="50%" stopColor={`hsla(${hue + 20}, ${sat}%, ${lit + 5}%, 0.92)`} />
+                            <stop offset="85%" stopColor={`hsla(${hue + 40}, ${sat - 5}%, ${lit - 5}%, 0.88)`} />
+                            <stop offset="100%" stopColor={`hsla(${hue + 50}, ${sat - 10}%, ${lit - 12}%, 0.82)`} />
                           </radialGradient>
                         );
                       })}
                     </defs>
-                    {/* Center pistil */}
-                    <motion.circle
-                      cx="0" cy="0" r="24"
-                      fill="url(#centerGrad)"
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ duration: 0.8, delay: 1.5 }}
-                    />
+                    <motion.circle cx="0" cy="0" r="22" fill="url(#centerGrad)" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ duration: 0.8, delay: 1.5 }} />
+                    <motion.circle cx="0" cy="0" r="14" fill="hsla(55, 70%, 65%, 0.6)" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ duration: 0.6, delay: 1.7 }} />
                     <defs>
                       <radialGradient id="centerGrad">
-                        <stop offset="0%" stopColor="hsl(55, 80%, 75%)" />
-                        <stop offset="100%" stopColor="hsl(90, 40%, 55%)" />
+                        <stop offset="0%" stopColor="hsl(50, 75%, 72%)" />
+                        <stop offset="60%" stopColor="hsl(65, 50%, 58%)" />
+                        <stop offset="100%" stopColor="hsl(90, 35%, 48%)" />
                       </radialGradient>
                     </defs>
-                    {/* Stamens */}
-                    {[0, 72, 144, 216, 288].map((a) => (
-                      <motion.line
-                        key={`s${a}`}
-                        x1="0" y1="0"
-                        x2={Math.sin(a * Math.PI / 180) * 36}
-                        y2={-Math.cos(a * Math.PI / 180) * 36}
-                        stroke="hsl(55, 60%, 65%)"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 0.8 }}
-                        transition={{ delay: 1.8 }}
-                      />
+                    {[0, 45, 90, 135, 180, 225, 270, 315].map((a) => (
+                      <motion.g key={`s${a}`} initial={{ opacity: 0 }} animate={{ opacity: 0.8 }} transition={{ delay: 1.8 + a * 0.002 }}>
+                        <line x1={Math.sin(a * Math.PI / 180) * 16} y1={-Math.cos(a * Math.PI / 180) * 16} x2={Math.sin(a * Math.PI / 180) * 32} y2={-Math.cos(a * Math.PI / 180) * 32} stroke="hsl(50, 55%, 60%)" strokeWidth="1.2" strokeLinecap="round" />
+                        <circle cx={Math.sin(a * Math.PI / 180) * 34} cy={-Math.cos(a * Math.PI / 180) * 34} r="2.5" fill="hsl(45, 70%, 55%)" />
+                      </motion.g>
                     ))}
                   </svg>
 
@@ -259,30 +263,26 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
                     {fallingPetal && (
                       <motion.div
                         className="absolute"
-                        style={{ top: 0, left: "50%", marginLeft: -20 }}
-                        initial={{ 
-                          y: -120, 
-                          x: 0, 
-                          rotate: 144,
-                          opacity: 0.95 
-                        }}
+                        style={{ top: 0, left: "50%", marginLeft: -25 }}
+                        initial={{ y: -120, x: 0, rotate: 144, opacity: 0.95 }}
                         animate={{
                           y: [-120, 50, 200, 400, 650],
-                          x: [0, 40, -20, 60, 30],
-                          rotate: [144, 200, 160, 250, 300],
+                          x: [0, 50, -30, 70, 40],
+                          rotate: [144, 210, 130, 270, 340],
                           opacity: [0.95, 0.9, 0.8, 0.5, 0],
                         }}
-                        transition={{
-                          duration: 6,
-                          ease: "easeIn",
-                        }}
+                        transition={{ duration: 6, ease: "easeIn" }}
                       >
-                        <svg width="40" height="60" viewBox="-20 -30 40 60">
+                        <svg width="50" height="70" viewBox="-25 -35 50 70">
                           <path
-                            d={`M0,-25 C${-12},${-15} ${-18},${5} 0,${25} C${18},${5} ${12},${-15} 0,-25`}
-                            fill="hsla(0, 0%, 100%, 0.9)"
-                            style={{ filter: "drop-shadow(0 2px 6px hsla(0,0%,80%,0.3))" }}
+                            d={`M0,-30 C-10,-15 -22,-5 -24,10 C-25,22 -18,32 -8,34 C-3,35 3,35 8,34 C18,32 25,22 24,10 C22,-5 10,-15 0,-30`}
+                            fill="hsla(0, 0%, 98%, 0.92)"
+                            stroke="hsla(340, 10%, 85%, 0.4)"
+                            strokeWidth="0.5"
                           />
+                          <path d="M0,-25 C-1,-10 -1,5 0,30" stroke="hsla(60, 10%, 85%, 0.4)" strokeWidth="0.6" fill="none" />
+                          <path d="M0,-15 C-8,-5 -12,5 -10,20" stroke="hsla(60, 10%, 88%, 0.25)" strokeWidth="0.4" fill="none" />
+                          <path d="M0,-15 C8,-5 12,5 10,20" stroke="hsla(60, 10%, 88%, 0.25)" strokeWidth="0.4" fill="none" />
                         </svg>
                       </motion.div>
                     )}
@@ -392,41 +392,60 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
                 draggable={false}
               />
 
-              {/* Large white petal floating above hands */}
+              {/* Wine-red petal wrapping the wish */}
               <motion.div
                 className="absolute flex items-center justify-center"
-                style={{ top: "-35%" }}
+                style={{ top: "-30%" }}
                 initial={{ scale: 0, opacity: 0, y: 60 }}
                 animate={{ scale: 1, opacity: 1, y: 0 }}
                 transition={{ duration: 2, delay: 1, ease: "easeOut" }}
               >
                 <svg
-                  width="280"
-                  height="380"
-                  viewBox="-140 -190 280 380"
-                  style={{ filter: "drop-shadow(0 6px 20px hsla(0,0%,75%,0.4))" }}
+                  width="300"
+                  height="400"
+                  viewBox="-150 -200 300 400"
+                  style={{ filter: "drop-shadow(0 8px 24px hsla(340,40%,25%,0.35))" }}
                 >
+                  {/* Outer wine-red petal */}
                   <path
-                    d={`M0,-175 C-65,-130 -115,-30 -105,50 C-95,115 -55,160 0,180 C55,160 95,115 105,50 C115,-30 65,-130 0,-175`}
-                    fill="hsla(0, 0%, 100%, 0.94)"
-                    stroke="hsla(0, 0%, 88%, 0.5)"
+                    d={`M0,-185 C-50,-150 -110,-70 -115,20 C-120,85 -95,140 -60,168 C-35,185 -15,192 0,195 C15,192 35,185 60,168 C95,140 120,85 115,20 C110,-70 50,-150 0,-185`}
+                    fill="url(#wineRedGrad)"
+                    stroke="hsla(340, 50%, 30%, 0.3)"
                     strokeWidth="1"
                   />
-                  <path d="M0,-160 C-3,-80 -2,0 0,165" stroke="hsla(60, 10%, 85%, 0.5)" strokeWidth="1" fill="none" />
-                  <path d="M0,-120 C-25,-60 -40,0 -32,80" stroke="hsla(60, 10%, 88%, 0.3)" strokeWidth="0.8" fill="none" />
-                  <path d="M0,-120 C25,-60 40,0 32,80" stroke="hsla(60, 10%, 88%, 0.3)" strokeWidth="0.8" fill="none" />
+                  {/* Inner lighter area */}
+                  <path
+                    d={`M0,-145 C-35,-115 -75,-45 -78,25 C-80,70 -60,110 -35,130 C-18,142 -8,148 0,150 C8,148 18,142 35,130 C60,110 80,70 78,25 C75,-45 35,-115 0,-145`}
+                    fill="hsla(340, 20%, 93%, 0.88)"
+                    stroke="hsla(340, 30%, 75%, 0.3)"
+                    strokeWidth="0.5"
+                  />
+                  {/* Veins */}
+                  <path d="M0,-170 C-2,-90 -1,0 0,180" stroke="hsla(340, 30%, 45%, 0.2)" strokeWidth="1" fill="none" />
+                  <path d="M0,-130 C-20,-70 -35,-10 -30,90" stroke="hsla(340, 25%, 50%, 0.12)" strokeWidth="0.7" fill="none" />
+                  <path d="M0,-130 C20,-70 35,-10 30,90" stroke="hsla(340, 25%, 50%, 0.12)" strokeWidth="0.7" fill="none" />
+                  <path d="M0,-100 C-40,-50 -60,0 -55,70" stroke="hsla(340, 20%, 55%, 0.08)" strokeWidth="0.5" fill="none" />
+                  <path d="M0,-100 C40,-50 60,0 55,70" stroke="hsla(340, 20%, 55%, 0.08)" strokeWidth="0.5" fill="none" />
+                  <defs>
+                    <radialGradient id="wineRedGrad" cx="50%" cy="25%">
+                      <stop offset="0%" stopColor="hsla(345, 55%, 45%, 0.95)" />
+                      <stop offset="35%" stopColor="hsla(340, 50%, 35%, 0.92)" />
+                      <stop offset="70%" stopColor="hsla(335, 45%, 28%, 0.9)" />
+                      <stop offset="100%" stopColor="hsla(330, 40%, 22%, 0.88)" />
+                    </radialGradient>
+                  </defs>
                 </svg>
 
                 {/* Text input on the petal */}
                 <motion.div
-                  className="absolute inset-0 flex flex-col items-center justify-center px-14"
+                  className="absolute inset-0 flex flex-col items-center justify-center px-16"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 2.5, duration: 1.5 }}
                 >
                   <p
                     className="text-sm tracking-[0.3em] mb-4 font-serif-elegant italic"
-                    style={{ color: "hsla(210, 15%, 45%, 0.65)" }}
+                    style={{ color: "hsla(340, 30%, 40%, 0.7)" }}
                   >
                     あなたの願いを
                   </p>
@@ -434,10 +453,10 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
                     value={wishText}
                     onChange={(e) => setWishText(e.target.value)}
                     placeholder="ここに願いを書いてください..."
-                    className="w-40 h-28 bg-transparent border-none outline-none resize-none text-center font-serif-elegant italic text-base leading-relaxed"
+                    className="w-44 h-32 bg-transparent border-none outline-none resize-none text-center font-serif-elegant italic text-base leading-relaxed"
                     style={{
-                      color: "hsla(210, 20%, 30%, 0.85)",
-                      caretColor: "hsla(210, 20%, 50%, 0.6)",
+                      color: "hsla(340, 30%, 25%, 0.85)",
+                      caretColor: "hsla(340, 30%, 40%, 0.6)",
                     }}
                     maxLength={200}
                     autoFocus
