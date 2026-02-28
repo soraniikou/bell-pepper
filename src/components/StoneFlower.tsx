@@ -312,19 +312,20 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
           )}
         </AnimatePresence>
 
-        {/* Stone */}
+        {/* Stone on hands */}
         {stage !== "blooming" && (
           <motion.div
-            className="relative"
+            className="relative flex flex-col items-center"
             animate={{
               scale: isDragging
-                ? Math.max(0, 1 - growthLevel * 1.1) * 0.97
-                : Math.max(0, 1 - growthLevel * 1.1),
+                ? Math.max(0.3, 1 - growthLevel * 0.7) * 0.97
+                : Math.max(0.3, 1 - growthLevel * 0.7),
               opacity: Math.max(0, 1 - growthLevel * 1.3),
             }}
             transition={{ duration: 0.3 }}
           >
-            <svg width="70" height="45" viewBox="0 0 70 45">
+            {/* Stone */}
+            <svg width="70" height="45" viewBox="0 0 70 45" style={{ marginBottom: -18, zIndex: 2, position: "relative" }}>
               <ellipse cx="35" cy="25" rx="32" ry="18" fill={stoneColor} stroke="none" />
               <ellipse cx="35" cy="25" rx="32" ry="18" fill="url(#stoneGrad)" />
               <ellipse cx="28" cy="20" rx="12" ry="6" fill="hsla(0, 0%, 100%, 0.08)" />
@@ -335,6 +336,14 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
                 </radialGradient>
               </defs>
             </svg>
+            {/* Hands image */}
+            <img
+              src="/images/hands.png"
+              alt="手のひら"
+              className="w-[200px] h-auto pointer-events-none select-none"
+              style={{ filter: "drop-shadow(0 4px 12px hsla(0,0%,60%,0.25))" }}
+              draggable={false}
+            />
             {isDragging && (
               <motion.div
                 className="absolute inset-0 rounded-full"
