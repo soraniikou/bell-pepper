@@ -1,73 +1,36 @@
-# Welcome to your Lovable project
+🌸 bell-pepper
+石ころから芽が出て、花びらに願いを書いて、小鳥が願いを届けてくれる――
+そんな小さな奇跡を体験できるアプリです。
+🐦 アプリについて
+gentle-bloom は、思考と行動を明るく・軽くするためのラバブルなWebアプリです。
+🪨 石ころから芽が出る
+🌸 芽が花びらになる
+✍️ 花びらに願いを書く
+🐦 小鳥が願いを届けてくれる
 
-## Project info
+デモ
+👉 bell-pepper.lovable.app
+スクリーンショット
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+![アプリ画面](./hanabira.png)
+実際の表示例（画像ファイルをリポジトリに配置後、下記が自動表示されます）：
+�
+画像を読み込む
+�
+画像を読み込む
+ 技術スタック
+Vite + React + TypeScript
+Tailwind CSS
+shadcn/ui
+Lovable でホスティング
+ ローカルで動かす
+#インストール
+bun install
 
-## How can I edit this code?
-
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+#開発サーバー起動
+bun run dev
+✨ コンセプト
+小さな石ころにも、やがて花が咲く。
+願いは、きっと届く。
+思考と行動が明るく・軽くなるように。
+日々の中にそっと寄り添うアプリを目指しています🌱
