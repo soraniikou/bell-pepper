@@ -188,72 +188,98 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
                   <svg width="360" height="360" viewBox="-180 -180 360 360" style={{ overflow: "visible" }}>
                     {petalAngles.map((angle, i) => {
                       if (fallingPetal && i === 2) return null;
+                      // Each petal has slightly different shape for organic feel
+                      const widthVar = [0, 3, -2, 4, -3][i];
+                      const lenVar = [0, -5, 3, -3, 5][i];
+                      const curlVar = [0, 2, -1, 3, -2][i];
                       return (
                         <motion.g
                           key={angle}
                           transform={`rotate(${angle})`}
                           initial={{ scale: 0, opacity: 0 }}
-                          animate={{ scale: 1, opacity: 0.95 }}
+                          animate={{ scale: 1, opacity: 0.96 }}
                           transition={{ duration: 1.2, delay: 0.5 + i * 0.15 }}
                         >
+                          {/* Main petal shape - like a real paprika flower petal: wide base, rounded sides, pointed tip with slight curl */}
                           <path
-                            d={`M0,0 C-15,-20 -40,-60 -45,-100 C-48,-125 -35,-145 -15,-155 C-5,-160 5,-160 15,-155 C35,-145 48,-125 45,-100 C40,-60 15,-20 0,0`}
+                            d={`M0,0 
+                              C${-8 - widthVar},-8 ${-18 - widthVar},-25 ${-28 - widthVar},-55 
+                              C${-35 - widthVar},-80 ${-38 - widthVar},-110 ${-30 - widthVar},${-135 + lenVar} 
+                              C${-22 - widthVar},${-150 + lenVar} ${-10 + curlVar},${-158 + lenVar} ${0 + curlVar},${-160 + lenVar} 
+                              C${10 + curlVar},${-158 + lenVar} ${22 + widthVar},${-150 + lenVar} ${30 + widthVar},${-135 + lenVar} 
+                              C${38 + widthVar},-110 ${35 + widthVar},-80 ${28 + widthVar},-55 
+                              C${18 + widthVar},-25 ${8 + widthVar},-8 0,0`}
                             fill={rainbowProgress > 0 ? `url(#petalGrad${i})` : "url(#petalGradWhite)"}
                           />
+                          {/* Petal fold/crease - subtle 3D effect */}
                           <path
-                            d={`M0,-5 C-2,-50 -5,-100 0,-148`}
-                            stroke={rainbowProgress > 0 ? `hsla(0,0%,100%,0.2)` : `hsla(60,10%,85%,0.4)`}
-                            strokeWidth="0.8"
+                            d={`M0,0 
+                              C${-3},-12 ${-6},-40 ${-4},-80 
+                              C${-2},-120 ${0},${-148 + lenVar} ${curlVar},${-155 + lenVar}`}
+                            stroke={rainbowProgress > 0 ? `hsla(0,0%,100%,0.25)` : `hsla(60,10%,82%,0.45)`}
+                            strokeWidth="1"
+                            fill="none"
+                          />
+                          {/* Side veins - curved like real petals */}
+                          <path
+                            d={`M0,-20 C${-10},-45 ${-18},-75 ${-16},${-120 + lenVar}`}
+                            stroke={rainbowProgress > 0 ? `hsla(0,0%,100%,0.15)` : `hsla(60,10%,86%,0.3)`}
+                            strokeWidth="0.6"
                             fill="none"
                           />
                           <path
-                            d={`M0,-30 C-12,-60 -22,-90 -18,-130`}
-                            stroke={rainbowProgress > 0 ? `hsla(0,0%,100%,0.15)` : `hsla(60,10%,88%,0.3)`}
-                            strokeWidth="0.5"
+                            d={`M0,-20 C${10},-45 ${18},-75 ${16},${-120 + lenVar}`}
+                            stroke={rainbowProgress > 0 ? `hsla(0,0%,100%,0.15)` : `hsla(60,10%,86%,0.3)`}
+                            strokeWidth="0.6"
                             fill="none"
                           />
+                          {/* Subtle edge highlight for depth */}
                           <path
-                            d={`M0,-30 C12,-60 22,-90 18,-130`}
-                            stroke={rainbowProgress > 0 ? `hsla(0,0%,100%,0.15)` : `hsla(60,10%,88%,0.3)`}
-                            strokeWidth="0.5"
+                            d={`M${-8 - widthVar},-8 
+                              C${-18 - widthVar},-25 ${-28 - widthVar},-55 ${-35 - widthVar},-80`}
+                            stroke={rainbowProgress > 0 ? `hsla(0,0%,100%,0.1)` : `hsla(0,0%,100%,0.15)`}
+                            strokeWidth="1.5"
                             fill="none"
                           />
                         </motion.g>
                       );
                     })}
                     <defs>
-                      <radialGradient id="petalGradWhite" cx="50%" cy="30%">
+                      <radialGradient id="petalGradWhite" cx="45%" cy="30%">
                         <stop offset="0%" stopColor="hsla(0, 0%, 100%, 0.99)" />
-                        <stop offset="40%" stopColor="hsla(350, 5%, 97%, 0.96)" />
-                        <stop offset="100%" stopColor="hsla(340, 8%, 92%, 0.88)" />
+                        <stop offset="30%" stopColor="hsla(60, 5%, 98%, 0.97)" />
+                        <stop offset="70%" stopColor="hsla(60, 6%, 95%, 0.93)" />
+                        <stop offset="100%" stopColor="hsla(80, 8%, 90%, 0.85)" />
                       </radialGradient>
                       {petalAngles.map((_, i) => {
                         const hue = (i * 72) + rainbowProgress * 360;
-                        const sat = Math.min(80, 80 * rainbowProgress);
-                        const lit = 55 - rainbowProgress * 15;
+                        const sat = Math.min(75, 75 * rainbowProgress);
+                        const lit = 58 - rainbowProgress * 15;
                         return (
-                          <radialGradient key={`pg${i}`} id={`petalGrad${i}`} cx="50%" cy="25%">
-                            <stop offset="0%" stopColor={`hsla(${hue}, ${sat}%, ${lit + 20}%, 0.95)`} />
-                            <stop offset="50%" stopColor={`hsla(${hue + 20}, ${sat}%, ${lit + 5}%, 0.92)`} />
-                            <stop offset="85%" stopColor={`hsla(${hue + 40}, ${sat - 5}%, ${lit - 5}%, 0.88)`} />
-                            <stop offset="100%" stopColor={`hsla(${hue + 50}, ${sat - 10}%, ${lit - 12}%, 0.82)`} />
+                          <radialGradient key={`pg${i}`} id={`petalGrad${i}`} cx="45%" cy="25%">
+                            <stop offset="0%" stopColor={`hsla(${hue}, ${sat}%, ${lit + 22}%, 0.96)`} />
+                            <stop offset="40%" stopColor={`hsla(${hue + 15}, ${sat}%, ${lit + 8}%, 0.93)`} />
+                            <stop offset="75%" stopColor={`hsla(${hue + 30}, ${sat - 5}%, ${lit - 2}%, 0.9)`} />
+                            <stop offset="100%" stopColor={`hsla(${hue + 45}, ${sat - 10}%, ${lit - 10}%, 0.84)`} />
                           </radialGradient>
                         );
                       })}
                     </defs>
-                    <motion.circle cx="0" cy="0" r="22" fill="url(#centerGrad)" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ duration: 0.8, delay: 1.5 }} />
-                    <motion.circle cx="0" cy="0" r="14" fill="hsla(55, 70%, 65%, 0.6)" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ duration: 0.6, delay: 1.7 }} />
+                    {/* Center pistil - like real paprika flower */}
+                    <motion.circle cx="0" cy="0" r="20" fill="url(#centerGrad)" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ duration: 0.8, delay: 1.5 }} />
+                    <motion.circle cx="0" cy="0" r="10" fill="hsla(90, 30%, 55%, 0.5)" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ duration: 0.6, delay: 1.7 }} />
                     <defs>
                       <radialGradient id="centerGrad">
-                        <stop offset="0%" stopColor="hsl(50, 75%, 72%)" />
-                        <stop offset="60%" stopColor="hsl(65, 50%, 58%)" />
-                        <stop offset="100%" stopColor="hsl(90, 35%, 48%)" />
+                        <stop offset="0%" stopColor="hsl(55, 65%, 78%)" />
+                        <stop offset="50%" stopColor="hsl(70, 45%, 60%)" />
+                        <stop offset="100%" stopColor="hsl(100, 30%, 45%)" />
                       </radialGradient>
                     </defs>
-                    {[0, 45, 90, 135, 180, 225, 270, 315].map((a) => (
-                      <motion.g key={`s${a}`} initial={{ opacity: 0 }} animate={{ opacity: 0.8 }} transition={{ delay: 1.8 + a * 0.002 }}>
-                        <line x1={Math.sin(a * Math.PI / 180) * 16} y1={-Math.cos(a * Math.PI / 180) * 16} x2={Math.sin(a * Math.PI / 180) * 32} y2={-Math.cos(a * Math.PI / 180) * 32} stroke="hsl(50, 55%, 60%)" strokeWidth="1.2" strokeLinecap="round" />
-                        <circle cx={Math.sin(a * Math.PI / 180) * 34} cy={-Math.cos(a * Math.PI / 180) * 34} r="2.5" fill="hsl(45, 70%, 55%)" />
+                    {/* Stamens with anthers */}
+                    {[0, 60, 120, 180, 240, 320].map((a) => (
+                      <motion.g key={`s${a}`} initial={{ opacity: 0 }} animate={{ opacity: 0.85 }} transition={{ delay: 1.8 + a * 0.002 }}>
+                        <line x1={Math.sin(a * Math.PI / 180) * 12} y1={-Math.cos(a * Math.PI / 180) * 12} x2={Math.sin(a * Math.PI / 180) * 28} y2={-Math.cos(a * Math.PI / 180) * 28} stroke="hsl(55, 40%, 65%)" strokeWidth="1.2" strokeLinecap="round" />
+                        <ellipse cx={Math.sin(a * Math.PI / 180) * 30} cy={-Math.cos(a * Math.PI / 180) * 30} rx="3" ry="2" fill="hsl(50, 60%, 55%)" transform={`rotate(${a}, ${Math.sin(a * Math.PI / 180) * 30}, ${-Math.cos(a * Math.PI / 180) * 30})`} />
                       </motion.g>
                     ))}
                   </svg>
