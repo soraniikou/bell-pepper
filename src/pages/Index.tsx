@@ -88,9 +88,9 @@ const Index = () => {
 
   // Determine the hint text
   const hintText = useMemo(() => {
+    if (isBlooming) return "";
     if (!hasInteracted) return "画面をスワイプして空を変えよう";
     if (growthLevel < 0.3) return "石を撫でて";
-    if (isBlooming) return "";
     return "";
   }, [hasInteracted, growthLevel, isBlooming]);
 
