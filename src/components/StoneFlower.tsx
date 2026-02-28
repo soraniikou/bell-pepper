@@ -427,23 +427,43 @@ export const StoneFlower = ({ skyProgress, growthLevel, onNurture }: StoneFlower
                 transition={{ duration: 2, delay: 1, ease: "easeOut" }}
               >
                 <svg
-                  width="260"
-                  height="360"
-                  viewBox="-130 -180 260 360"
-                  style={{ filter: "drop-shadow(0 6px 20px hsla(0,0%,75%,0.4))" }}
+                  width="340"
+                  height="340"
+                  viewBox="-170 -170 340 340"
+                  style={{ filter: "drop-shadow(0 6px 24px hsla(0,0%,70%,0.4))" }}
                 >
-                  <path
-                    d={`M0,-170 C-12,-155 -42,-120 -48,-80 C-55,-35 -50,15 -40,55 C-30,95 -15,135 0,160 C15,135 30,95 40,55 C50,15 55,-35 48,-80 C42,-120 12,-155 0,-170`}
-                    fill="hsla(0, 0%, 100%, 0.95)"
-                    stroke="hsla(0, 0%, 88%, 0.5)"
+                  {/* Round flower shape - large circular petal */}
+                  <circle
+                    cx="0" cy="0" r="155"
+                    fill="hsla(0, 0%, 100%, 0.96)"
+                    stroke="hsla(0, 0%, 88%, 0.4)"
                     strokeWidth="1"
                   />
-                  {/* Veins */}
-                  <path d="M0,-155 C-1,-80 -1,0 0,150" stroke="hsla(60, 10%, 85%, 0.5)" strokeWidth="1" fill="none" />
-                  <path d="M0,-120 C-15,-60 -25,0 -20,80" stroke="hsla(60, 10%, 88%, 0.3)" strokeWidth="0.7" fill="none" />
-                  <path d="M0,-120 C15,-60 25,0 20,80" stroke="hsla(60, 10%, 88%, 0.3)" strokeWidth="0.7" fill="none" />
-                  <path d="M0,-80 C-25,-30 -35,20 -28,70" stroke="hsla(60, 10%, 90%, 0.2)" strokeWidth="0.5" fill="none" />
-                  <path d="M0,-80 C25,-30 35,20 28,70" stroke="hsla(60, 10%, 90%, 0.2)" strokeWidth="0.5" fill="none" />
+                  {/* Soft petal scallops around the edge */}
+                  {[0, 60, 120, 180, 240, 300].map((a) => (
+                    <circle
+                      key={a}
+                      cx={Math.sin(a * Math.PI / 180) * 115}
+                      cy={-Math.cos(a * Math.PI / 180) * 115}
+                      r="72"
+                      fill="hsla(0, 0%, 100%, 0.92)"
+                      stroke="hsla(0, 0%, 90%, 0.25)"
+                      strokeWidth="0.5"
+                    />
+                  ))}
+                  {/* Center highlight */}
+                  <circle cx="0" cy="0" r="60" fill="hsla(55, 15%, 97%, 0.5)" />
+                  {/* Veins radiating from center */}
+                  {[0, 60, 120, 180, 240, 300].map((a) => (
+                    <line
+                      key={`v${a}`}
+                      x1="0" y1="0"
+                      x2={Math.sin(a * Math.PI / 180) * 130}
+                      y2={-Math.cos(a * Math.PI / 180) * 130}
+                      stroke="hsla(60, 10%, 88%, 0.3)"
+                      strokeWidth="0.7"
+                    />
+                  ))}
                 </svg>
 
                 {/* Text input on the petal */}
