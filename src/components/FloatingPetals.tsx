@@ -1,3 +1,9 @@
+import { useRef } from "react";
+import { motion } from "framer-motion";
+
+interface FloatingPetalsProps {
+  active: boolean;
+}
 export const FloatingPetals = ({ active }: FloatingPetalsProps) => {
   const petals = useRef(
     Array.from({ length: 16 }, (_, i) => ({
