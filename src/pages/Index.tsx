@@ -165,7 +165,7 @@ const Index = () => {
       <SunlightEffect opacity={sunlightOpacity} />
 
       {/* Floating petals when blooming */}
-      <FloatingPetals active={True} />
+      <FloatingPetals active={true} />
 
       {/* Ground gradient */}
       <div
