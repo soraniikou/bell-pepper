@@ -44,7 +44,7 @@ const Index = () => {
   // Sunlight: ramps up from 0.7
   const sunlightOpacity = useMemo(() => Math.max(0, (skyProgress - 0.65) / 0.35), [skyProgress]);
 
-  const isBlooming = growthLevel >= 0.8 && skyProgress >= 0.8;
+  const isBlooming = growthLevel >= 0.3 && skyProgress >= 0.3;
 
   // Bloom trigger
   useEffect(() => {
