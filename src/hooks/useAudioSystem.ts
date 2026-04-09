@@ -91,5 +91,22 @@ export function useAudioSystem() {
     }
   }, []);
 
+  // ページが非表示になったら音を止め、表示に戻ったら再開
+  useEffect(() => {
+    const handleVisibility = () => {
+      if (document.hidden) {
+        if (audioCtxRef.current && audioCtxRef.current.state === "running") {
+          audioCtxRef.current.suspend();
+        }
+      } else {
+        if (audioCtxRef.current && audioCtxRef.current.state === "suspended" && isPlayingRef.current) {
+          audioCtxRef.current.resume();
+        }
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibility);
+    return () => document.removeEventListener("visibilitychange", handleVisibility);
+  }, []);
+
   return { startAmbient, stopAmbient, playChime, playBloomMelody };
 }
