@@ -1,4 +1,4 @@
-import { useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
 // Simple audio synthesis using Web Audio API for wind chime sounds
 export function useAudioSystem() {
