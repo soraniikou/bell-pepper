@@ -22,6 +22,10 @@ const Index = () => {
   const handleRestart = useCallback(() => {
     lastY.current = null;
     stopAmbient();
+    // Close and discard the AudioContext entirely so no residual sounds remain
+    if ((window as any).__audioCtxRef) {
+      (window as any).__audioCtxRef = null;
+    }
     setSkyProgress(0);
     setGrowthLevel(0);
     setHasInteracted(false);
@@ -243,7 +247,7 @@ const Index = () => {
       <AnimatePresence>
         {hasBloomedOnce && (
           <motion.div
-            className="absolute bottom-6 left-0 right-0 flex justify-center gap-4 z-20"
+            className="absolute bottom-[20vh] left-0 right-0 flex justify-center gap-4 z-20"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
