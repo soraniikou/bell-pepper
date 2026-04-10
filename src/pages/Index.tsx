@@ -8,6 +8,7 @@ import { StoneFlower } from "@/components/StoneFlower";
 import { FloatingPetals } from "@/components/FloatingPetals";
 import { useAudioSystem } from "@/hooks/useAudioSystem";
 
+// eslint-disable-next-line react-refresh/only-export-components
 const Index = () => {
   const [skyProgress, setSkyProgress] = useState(0); // 0=rain, 0.5=night, 1=clear
   const [growthLevel, setGrowthLevel] = useState(0);
