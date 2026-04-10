@@ -14,16 +14,19 @@ const Index = () => {
   const [growthLevel, setGrowthLevel] = useState(0);
   const [hasInteracted, setHasInteracted] = useState(false);
   const [hasBloomedOnce, setHasBloomedOnce] = useState(false);
+  const [resetKey, setResetKey] = useState(0);
   const lastY = useRef<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const { startAmbient, stopAmbient, playBloomMelody, playChime } = useAudioSystem();
 
   const handleRestart = useCallback(() => {
+    lastY.current = null;
+    stopAmbient();
     setSkyProgress(0);
     setGrowthLevel(0);
     setHasInteracted(false);
     setHasBloomedOnce(false);
-    stopAmbient();
+    setResetKey((prev) => prev + 1);
   }, [stopAmbient]);
 
   const handleStopAudio = useCallback(() => {
@@ -112,6 +115,7 @@ const Index = () => {
 
   return (
     <div
+      key={resetKey}
       ref={containerRef}
       className="fixed inset-0 overflow-hidden cursor-grab active:cursor-grabbing"
       style={{
@@ -178,7 +182,7 @@ const Index = () => {
       <SunlightEffect opacity={sunlightOpacity} />
 
       {/* Floating petals when blooming */}
-      <FloatingPetals active={isBlooming} />
+      <FloatingPetals active={hasInteracted && isBlooming} />
 
       {/* Ground gradient */}
       <div
