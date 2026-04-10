@@ -88,6 +88,12 @@ export function useAudioSystem() {
     isPlayingRef.current = false;
     if (intervalRef.current) {
       clearTimeout(intervalRef.current);
+      intervalRef.current = null;
+    }
+    // Close the AudioContext to kill all residual sounds
+    if (audioCtxRef.current) {
+      audioCtxRef.current.close().catch(() => {});
+      audioCtxRef.current = null;
     }
   }, []);
 
