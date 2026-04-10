@@ -234,6 +234,42 @@ const Index = () => {
           </motion.p>
         )}
       </AnimatePresence>
+
+      {/* Final screen buttons */}
+      <AnimatePresence>
+        {hasBloomedOnce && (
+          <motion.div
+            className="absolute bottom-6 left-0 right-0 flex justify-center gap-4 z-20"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1, delay: 2 }}
+          >
+            <button
+              onClick={handleRestart}
+              className="px-4 py-1.5 text-xs tracking-widest rounded-full backdrop-blur-sm transition-opacity hover:opacity-80"
+              style={{
+                background: "hsla(0, 0%, 100%, 0.15)",
+                color: `hsla(0, 0%, ${skyProgress > 0.7 ? 30 : 85}%, 0.6)`,
+                border: `1px solid hsla(0, 0%, ${skyProgress > 0.7 ? 30 : 85}%, 0.2)`,
+              }}
+            >
+              もう一度
+            </button>
+            <button
+              onClick={handleStopAudio}
+              className="px-4 py-1.5 text-xs tracking-widest rounded-full backdrop-blur-sm transition-opacity hover:opacity-80"
+              style={{
+                background: "hsla(0, 0%, 100%, 0.15)",
+                color: `hsla(0, 0%, ${skyProgress > 0.7 ? 30 : 85}%, 0.6)`,
+                border: `1px solid hsla(0, 0%, ${skyProgress > 0.7 ? 30 : 85}%, 0.2)`,
+              }}
+            >
+              音を止める
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
