@@ -109,10 +109,9 @@ const Index = () => {
   // Determine the hint text
   const hintText = useMemo(() => {
     if (isBlooming) return "";
-    if (!hasInteracted) return "画面をスワイプして空を変えよう";
-    if (growthLevel < 0.3) return "石を撫でて";
+    if (!hasInteracted) return "click";
     return "";
-  }, [hasInteracted, growthLevel, isBlooming]);
+  }, [hasInteracted, isBlooming]);
 
   // Whisper text after bloom
   const showWhisper = hasBloomedOnce && isBlooming;
@@ -212,7 +211,7 @@ const Index = () => {
           <motion.p
             className="absolute bottom-12 left-0 right-0 text-center pointer-events-none font-serif-elegant"
             style={{
-              fontSize: hintText === "石を撫でて" ? "clamp(1.8rem, 5vw, 3rem)" : "clamp(0.9rem, 2.5vw, 1.2rem)",
+              fontSize: "clamp(0.9rem, 2.5vw, 1.2rem)",
               letterSpacing: "0.15em",
               color: `hsla(0, 0%, ${skyProgress > 0.7 ? 30 : 85}%, 0.5)`,
             }}
