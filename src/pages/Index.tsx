@@ -247,7 +247,7 @@ const Index = () => {
       <AnimatePresence>
         {hasBloomedOnce && (
           <motion.div
-            className="absolute bottom-[20vh] left-0 right-0 flex justify-center gap-4 z-20"
+            className="fixed bottom-5 left-0 right-0 flex justify-center gap-4 z-50"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
