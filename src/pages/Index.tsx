@@ -16,7 +16,19 @@ const Index = () => {
   const [hasBloomedOnce, setHasBloomedOnce] = useState(false);
   const lastY = useRef<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const { startAmbient, playBloomMelody, playChime } = useAudioSystem();
+  const { startAmbient, stopAmbient, playBloomMelody, playChime } = useAudioSystem();
+
+  const handleRestart = useCallback(() => {
+    setSkyProgress(0);
+    setGrowthLevel(0);
+    setHasInteracted(false);
+    setHasBloomedOnce(false);
+    stopAmbient();
+  }, [stopAmbient]);
+
+  const handleStopAudio = useCallback(() => {
+    stopAmbient();
+  }, [stopAmbient]);
 
   // Auto-progress: sky and growth advance automatically
   useEffect(() => {
