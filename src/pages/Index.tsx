@@ -16,7 +16,19 @@ const Index = () => {
   const [hasBloomedOnce, setHasBloomedOnce] = useState(false);
   const lastY = useRef<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const { startAmbient, playBloomMelody, playChime } = useAudioSystem();
+  const { startAmbient, stopAmbient, playBloomMelody, playChime } = useAudioSystem();
+
+  const handleRestart = useCallback(() => {
+    setSkyProgress(0);
+    setGrowthLevel(0);
+    setHasInteracted(false);
+    setHasBloomedOnce(false);
+    stopAmbient();
+  }, [stopAmbient]);
+
+  const handleStopAudio = useCallback(() => {
+    stopAmbient();
+  }, [stopAmbient]);
 
   // Auto-progress: sky and growth advance automatically
   useEffect(() => {
@@ -166,7 +178,7 @@ const Index = () => {
       <SunlightEffect opacity={sunlightOpacity} />
 
       {/* Floating petals when blooming */}
-      <FloatingPetals active={true} />
+      <FloatingPetals active={isBlooming} />
 
       {/* Ground gradient */}
       <div
@@ -220,6 +232,42 @@ const Index = () => {
           >
             愛おしい人生を。
           </motion.p>
+        )}
+      </AnimatePresence>
+
+      {/* Final screen buttons */}
+      <AnimatePresence>
+        {hasBloomedOnce && (
+          <motion.div
+            className="absolute bottom-6 left-0 right-0 flex justify-center gap-4 z-20"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1, delay: 2 }}
+          >
+            <button
+              onClick={handleRestart}
+              className="px-4 py-1.5 text-xs tracking-widest rounded-full backdrop-blur-sm transition-opacity hover:opacity-80"
+              style={{
+                background: "hsla(0, 0%, 100%, 0.15)",
+                color: `hsla(0, 0%, ${skyProgress > 0.7 ? 30 : 85}%, 0.6)`,
+                border: `1px solid hsla(0, 0%, ${skyProgress > 0.7 ? 30 : 85}%, 0.2)`,
+              }}
+            >
+              もう一度
+            </button>
+            <button
+              onClick={handleStopAudio}
+              className="px-4 py-1.5 text-xs tracking-widest rounded-full backdrop-blur-sm transition-opacity hover:opacity-80"
+              style={{
+                background: "hsla(0, 0%, 100%, 0.15)",
+                color: `hsla(0, 0%, ${skyProgress > 0.7 ? 30 : 85}%, 0.6)`,
+                border: `1px solid hsla(0, 0%, ${skyProgress > 0.7 ? 30 : 85}%, 0.2)`,
+              }}
+            >
+              音を止める
+            </button>
+          </motion.div>
         )}
       </AnimatePresence>
     </div>
